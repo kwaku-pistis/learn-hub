@@ -1,0 +1,282 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/black"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <RelativeLayout
+                android:id="@+id/video_rel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#000000">
+
+                <FrameLayout
+                    android:id="@+id/frameLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent">
+
+                    <com.warnyul.android.widget.FastVideoView
+                        android:id="@+id/video"
+                        android:layout_width="match_parent"
+                        android:layout_height="350dp"
+                        android:layout_alignParentTop="true"
+                        android:layout_centerHorizontal="true"
+                        android:alpha="0.0"
+                        android:rotation="0"/>
+
+                </FrameLayout>
+
+
+
+                <ProgressBar
+                    android:id="@+id/progress_bar"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_centerInParent="true"/>
+
+                <ImageView
+                    android:id="@+id/play_btn"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:visibility="visible"
+                    app:srcCompat="@drawable/ic_play"
+                    android:layout_centerInParent="true"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginLeft="20dp"/>
+
+                <ImageView
+                    android:id="@+id/pause_btn"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    app:srcCompat="@drawable/ic_pause"
+                    android:layout_centerInParent="true"
+                    android:visibility="gone"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginLeft="20dp"/>
+
+                <ImageView
+                    android:id="@+id/forward_btn"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    app:srcCompat="@drawable/ic_fast_forward"
+                    android:visibility="visible"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginEnd="50dp"
+                    android:layout_marginRight="50dp" />
+
+                <ImageView
+                    android:id="@+id/rewind_btn"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    app:srcCompat="@drawable/ic_fast_rewind"
+                    android:visibility="visible"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginLeft="50dp"
+                    android:layout_marginStart="50dp" />
+
+                <ImageView
+                    android:id="@+id/full_view"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    app:srcCompat="@drawable/ic_fullscreen"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginRight="8dp"
+                    android:layout_marginEnd="8dp" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/trim_view"
+                android:layout_below="@+id/video_rel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/trimBtn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Title"
+                    android:textColor="@color/white"
+                    android:textSize="16sp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginStart="10dp" />
+
+                <ImageView
+                    android:id="@+id/title_drop_down"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_arrow_drop_down_white_24dp"
+                    android:visibility="gone"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerInParent="true"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginEnd="10dp" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/profile_rel"
+                android:layout_below="@+id/trim_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <LinearLayout
+                    android:id="@+id/profile_linear"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/profile_pic"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:src="@drawable/profile_image"
+                        android:scaleType="centerCrop"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginBottom="16dp"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginRight="16dp"/>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_marginTop="25dp"
+                        android:layout_marginBottom="20dp">
+
+                        <TextView
+                            android:id="@+id/name_text"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Partey Daniel Tetteh"
+                            android:textColor="@color/white"/>
+
+                        <TextView
+                            android:id="@+id/programme"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="BSc. Computer Science"
+                            android:textColor="@color/grey"/>
+
+                    </LinearLayout>
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <ImageView
+                            android:id="@+id/video_call_btn"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            app:srcCompat="@drawable/ic_video_call"
+                            android:layout_alignParentEnd="true"
+                            android:layout_centerVertical="true"
+                            android:layout_alignParentRight="true"
+                            android:layout_marginRight="20dp"
+                            android:layout_marginEnd="20dp" />
+
+                    </RelativeLayout>
+
+                </LinearLayout>
+
+
+                <View
+                    android:id="@+id/view1"
+                    android:layout_below="@+id/profile_linear"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="#555"/>
+
+                <TextView
+                    android:id="@+id/desc_text_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Description"
+                    android:textColor="@color/colorAccent"
+                    android:layout_below="@+id/view1"
+                    android:layout_margin="10dp"
+                    android:textSize="16sp"/>
+
+                <TextView
+                    android:id="@+id/desc_textView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Some texts goes here for the user to view"
+                    android:textColor="@color/white"
+                    android:layout_below="@+id/desc_text_view"
+                    android:layout_margin="10dp"
+                    android:paddingLeft="15dp"
+                    android:paddingRight="15dp"
+                    android:textSize="14sp"
+                    android:paddingStart="15dp" />
+
+                <View
+                    android:id="@+id/view2"
+                    android:layout_below="@+id/desc_textView"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="#555"/>
+
+                <TextView
+                    android:id="@+id/more_text_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="More Videos"
+                    android:textColor="@color/colorAccent"
+                    android:layout_below="@+id/view2"
+                    android:layout_margin="10dp"
+                    android:textSize="16sp"/>
+
+                <LinearLayout
+                    android:id="@+id/video_linear"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/more_text_view"
+                    android:orientation="vertical"
+                    android:visibility="visible"
+                    android:layout_marginTop="10dp"
+                    android:paddingLeft="5dp"
+                    android:paddingStart="5dp"
+                    android:paddingRight="5dp">
+
+                    <android.support.v7.widget.RecyclerView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:id="@+id/video_list"
+                        android:background="@color/black">
+
+                    </android.support.v7.widget.RecyclerView>
+
+                </LinearLayout>
+
+            </RelativeLayout>
+        </RelativeLayout>
+    </ScrollView>
+</RelativeLayout>

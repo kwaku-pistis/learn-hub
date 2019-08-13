@@ -1,0 +1,143 @@
+<resources>
+    <string name="app_name">LearnHub</string>
+    <string name="action_settings">Settings</string>
+
+    <array name="tab_name">
+        <item>Video</item>
+        <item>Documents</item>
+        <item>Upload</item>
+        <item>Channels</item>
+        <item>Profile</item>
+    </array>
+
+
+    <!-- OnBoard Screen. -->
+
+    <string name="ob_header1">Welcome Screen 1</string>
+    <string name="ob_header2">Welcome Screen 2</string>
+    <string name="ob_header3">Welcome Screen 3</string>
+
+    <string name="ob_get_started">GET STARTED</string>
+
+
+    <string name="ob_desc1">Lorem ipsum dolor Praesent libero. Sed cursus antea</string>
+    <string name="ob_desc2">Lorem ipsum dolor Praesent libero. Sed cursus antea</string>
+    <string name="ob_desc3">Lorem ipsum dolor Praesent libero. Sed cursus antea</string>
+    <string name="sign_up_as_individual">SIGN UP AS AN INDIVIDUAL</string>
+    <string name="terms_amp_conditions"><![CDATA[Terms & Conditions]]></string>
+
+    <!-- extra string  -->
+    <string name="could_not_get_videos">Could not get %s videos.</string>
+    <string name="could_not_get_channel">Could not download channel information!</string>
+    <string name="views">%,d views</string>
+    <string name="error">Error</string>
+    <string name="ok">OK</string>
+    <string name="search_videos">Search Videos</string>
+    <string name="launch_offical_player_error">An error has occurred while trying to launch the
+		official YouTube player from Google. Make sure it is installed on your device.</string>
+    <string name="LIVE">LIVE</string>
+    <string name="featured">Featured</string>
+    <string name="most_popular">Most Popular</string>
+    <string name="video">Video</string>
+    <string name="videos">Videos</string>
+    <string name="num_videos">%d videos</string>
+    <string name="playlists">Playlists</string>
+    <string name="could_not_get_playlists">Could not get %s playlists.</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="loading">Loading …</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="title_activity_login">Sign in</string>
+
+    <!-- Strings related to login -->
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password</string>
+    <string name="action_sign_in">Sign In</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="error_invalid_email">This email address is invalid</string>
+    <string name="error_invalid_password">This password is too short</string>
+    <string name="error_incorrect_password">This password is incorrect</string>
+    <string name="error_field_required">This field is required</string>
+    <string name="error_confirm_password">Passwords do not match</string>
+    <string name="permission_rationale">"Contacts permissions are needed for providing email
+        completions."
+    </string>
+    <string name="progress_downloading">Downloading</string>
+    <string name="download_success">Download successful</string>
+    <string name="download_failure">Failed to download</string>
+    <string name="progress_uploading">Uploading...</string>
+    <string name="upload_success">Upload successful</string>
+    <string name="upload_failure">Failed to upload</string>
+    <string name="success">Task was successful</string>
+    <string name="open_profile">Open Profile</string>
+    <string name="send_message">Send Message</string>
+
+    <string name="terms_string">\nCurrent Update On: 25th December, 2018
+\n\n\n1.	Contractual Relationship
+\n\nThese Terms of Service (“Terms”) govern your access to and use of our services by you, an individual, business, brand, government or her agencies from within any country in the world including our various websites, SMS, APIs, email notifications, applications, buttons, widgets, ads, commerce services, and our other covered services that link to these Terms (collectively, the “Services”), and any information, text, links, graphics, photos, audio, videos, or other materials or arrangements of materials uploaded, downloaded or appearing on the Services (collectively referred to as “Content”) made available by LearnHub.
+\n\nBy using LearnHub\'s Services you agree to be bound by these Terms, which establishes a contractual relationship between you and LearnHub. If you do not agree to these Terms, you may not access or use the Services. These Terms expressly supersede prior agreements or arrangements with you. LearnHub may immediately terminate these Terms or any Services with respect to you, or generally cease offering or deny you access to the Services or any portion thereof, at any time for any reason.
+\n\nLearnHub may update the Terms related to our Services from time to time. Updates will be effective upon LearnHub\'s posting of such updated Terms at this location or the amended policies or supplemental terms on the applicable Service. Your continued access or use of our Services after such posting constitutes your consent to be bound by the Terms, as amended.
+\n\nWe will request, receive and use your personal information in connection with the Services and this is necessary to ensure that LearnHub attends to your complaint, dispute or safety issues as swiftly as possible within the shortest possible time.
+\n\n\n2.	Our Services
+\n\nOur Services constitute a technology platform that enables users of LearnHub\'s mobile applications or websites provided as part of the Services (each, an “Application”) to offer food and drinks plus self – employment services including food and drinks delivery services by LearnHub and/or independent third party providers of such services, including independent third party delivery providers that will be used by LearnHub or the food &amp; drinks service providers under agreement with LearnHub or certain of LearnHub\'s affiliates (“Third Party Providers”). Unless otherwise agreed by LearnHub in a separate written agreement with you, the Services are made available solely for your personal, noncommercial use.
+\n\nYou acknowledge that LearnHub may provide food or drink services by herself, or food and drinks delivery services by herself or provide delivery or logistics services or function as a delivery carrier to facilitate such food &amp; drinks services or their delivery in addition to independent third-party contractors who are not employed by LearnHub or any of her affiliates.
+\n\n\nYour License.
+\n\nSubject to your compliance with these Terms, LearnHub grants you a limited, non-sublicensable, non-exclusive, revocable, non-transferrable license to: \n\n(i) access and use the Applications on your personal device solely in connection with your use of the Services; and \n\n(ii) access and use any content, information and related materials that may be made available through the Services, in each case solely for your personal, noncommercial use. Any rights not expressly granted herein are reserved by LearnHub and LearnHub\'s licensors.
+\n\n\nYour Restrictions.
+\n\nYou may not: \n\n(i) remove any copyright, trademark or other proprietary notices from any portion of the Services; \n\n(ii) reproduce, modify, prepare derivative works based upon, distribute, license, lease, sell, resell, transfer, publicly display, publicly perform, transmit, stream, broadcast or otherwise exploit the Services except as expressly permitted by LearnHub; \n\n(iii) decompile, reverse engineer or disassemble the Services except as may be permitted by applicable law; \n\n(iv) link to, mirror or frame any portion of the Services; \n\n(v) cause or launch any programs or scripts for the purpose of scraping, indexing, surveying, or otherwise data mining any portion of the Services or unduly burdening or hindering the operation and/or functionality of any aspect of the Services; or \n\n(vi) attempt to gain unauthorized access to or impair any aspect of the Services or its related systems or networks.
+\n\n\nNon-Sale of Alcoholic Beverages
+\n\nLearnHub services and all of its platforms do not support the sale and purchase of alcoholic beverages. We completely disregard the sale and purchase of alcoholic related drinks so as to protect minors who may use LearnHub who may abuse the sale or purchase of alcoholic drinks.
+\n\n\nProvision of Our Services.
+\n\nYou acknowledge that portions of our Services may be made available at any time under LearnHub\'s various future brands that will be created or request options that will be associated with food and drinks services &amp; their associated delivery services. You also acknowledge that the Services may be made available under such brands or request options by or in connection with: \n\n(i) certain of LearnHub\'s future subsidiaries and affiliates; or \n\n(ii) independent Third-Party Providers.
+\n\n\nThird Party Services and Content.
+\n\nThe Services may be made available or accessed in connection with third party services and content (including advertising) that LearnHub does not control. You acknowledge that different terms of use and privacy policies may apply to your use of such third-party services and content. LearnHub does not endorse such third-party services and content and in no event shall LearnHub be responsible or liable for any products or services of such third-party providers. Additionally, Apple Inc., Google, Inc., Microsoft Corporation or BlackBerry Limited and/or their applicable international subsidiaries and affiliates will be third-party beneficiaries to this contract if you access the Services using Applications developed for Apple iOS, Android, Microsoft Windows, or Blackberry-powered mobile devices, respectively. These third-party beneficiaries are not parties to this contract and are not responsible for the provision or support of the Services in any manner. Your access to the Services using these devices is subject to terms set forth in the applicable third-party beneficiary\'s terms of service.
+\n\n\nOwnership.
+\n\nLearnHub\'s Services and all rights therein are and shall remain LearnHub\'s property or the property of LearnHub\'s parent company (i.e. Softwoahenfo) or LearnHub\'s licensors. Neither these Terms nor your use of LearnHub\'s Services convey or grant to you any rights: \n\n(i) in or related to the Services except for the limited license granted above; or \n\nii) to use or reference in any manner LearnHub\'s company names, logos, product and service names, trademarks or services marks or those of LearnHub\'s licensors.
+\n\n\n3.	Your Use of Our (LearnHub\'s) Services
+\n\nSign Up for an Account
+\n\nIn order to use most aspects of our Services, you must sign up for and maintain an active personal user Services account (“Account”). You must be at least 18 years of age, or the age of legal majority in your jurisdiction (if different than 18), to obtain an Account. Account registration requires you to submit to LearnHub certain personal information, such as your name, address, mobile phone number, date of birth, or any other information LearnHub may deem necessary to obtain. You agree to maintain accurate, complete, and up-to-date information in your Account. Your failure to maintain accurate, complete, and up-to-date Account information may result in your inability to access and use our Services or LearnHub\'s termination of these Terms with you. You are responsible for all activity that occur under your Account, and you agree to maintain the security and secrecy of your Account details and password at all times. Unless otherwise permitted by LearnHub in writing, you may only possess one Account.
+\n\n\nWhat you are required to do.
+\n\nYou may not authorize third parties to use your Account, and you may not allow persons under the age of 18 to receive food and drinks services from LearnHub or Third-Party Providers unless they are accompanied by you. You may not assign or otherwise transfer your Account to any other person or entity.
+\n\nYou agree to comply with all applicable laws when using the Services, and you may only use the Services for lawful and harmless purposes (e.g., no delivery of edibles and drinkables likely to cause harm to the human body). You will not, in your use of the Services, cause nuisance, annoyance, inconvenience, or property damage, whether to LearnHub, the Third-Party Provider or any other party. In certain instances, you may be asked to provide proof of identity to access or use our Services, and you agree that you may be denied access to or use of the Services if you refuse to provide such proof of identity.
+\n\n\nText Messages
+\n\nBy creating an Account, you agree that the Services may send you text (SMS) messages as part of the normal business operation of your use of the Services.
+\n\n\nPromotional Codes.
+\n\nLearnHub may, in LearnHub\'s sole discretion, create promotional codes that may be redeemed for Account credit, or other features or benefits related to our Services and/or a Third-Party Provider\'s services, subject to any additional terms that LearnHub establishes on a per promotional code basis (“Promo Codes”). You agree that Promo Codes: \n\n(i) may not be duplicated, sold or transferred in any manner, or made available to the general public (whether posted to a public form or otherwise), unless expressly permitted by LearnHub; \n\n(ii) must be used for the intended audience and purpose, and in a lawful manner; \n\n(iii) may be disabled by LearnHub at any time for any reason without liability to LearnHub; \n\n(iv) may only be used pursuant to the specific terms that LearnHub establishes for such Promo Code; \n\n(v) are not valid for cash; and \n\n(vi) may expire prior to your use. LearnHub reserves the right to withhold or deduct credits or other features or benefits obtained through the use of Promo Codes by you or any other user in the event that LearnHub determines or believes that the use or redemption of the Promo Code was in error, fraudulent, illegal, or in violation of the applicable Promo Code terms or these Terms.
+
+\n\n\nUser Provided Content.
+\n\nLearnHub may, in LearnHub\'s sole discretion, permit you from time to time to submit, upload, publish or otherwise make available to LearnHub through our Services textual, audio, and/or visual content and information, including commentary and feedback related to our Services, initiation of support requests, and submission of entries for competitions and promotions (“User Content”). Any User Content provided by you remains your property. However, by providing User Content to LearnHub, you grant LearnHub a worldwide, perpetual, irrevocable, transferrable, royalty-free license, with the right to sublicense, to use, copy, modify, create derivative works of, distribute, publicly display, publicly perform, and otherwise exploit in any manner such User Content in all formats and distribution channels now known or hereafter devised (including in connection with our Services and LearnHub\'s business and on third-party sites and services), without further notice to or consent from you, and without the requirement of payment to you or any other person or entity.
+\n\nYou represent and warrant that: \n\n(i) you either are the sole and exclusive owner of all User Content or you have all rights, licenses, consents and releases necessary to grant LearnHub the license to the User Content as set forth above; and \n\n(ii) neither the User Content nor your submission, uploading, publishing or otherwise making available of such User Content nor LearnHub\'s use of the User Content as permitted herein will infringe, misappropriate or violate a third party\'s intellectual property or proprietary rights, or rights of publicity or privacy, or result in the violation of any applicable law or regulation.
+\n\nYou agree to not provide User Content that is defamatory, libelous, hateful, violent, obscene, pornographic, unlawful, or otherwise offensive, as determined by LearnHub in its sole discretion, whether or not such material may be protected by law. LearnHub may, but shall not be obligated to, review, monitor, or remove User Content, at LearnHub\'s sole discretion and at any time and for any reason, without notice to you.
+\n\n\nNetwork Access and Devices.
+\n\nYou are responsible for obtaining the data network access necessary to use our Services. Your mobile network\'s data and messaging rates and fees may apply if you access or use our Services from a wireless-enabled device and you shall be responsible for such rates and fees. You are responsible for acquiring and updating compatible hardware or devices necessary to access and use our Services and Applications and any related updates. LearnHub does not guarantee that our Services, or any portion thereof, will function on any particular hardware or devices. In addition, our Services may be subject to malfunctions and delays inherent in the use of the Internet and electronic communications.
+
+\n\n\n4. Payment
+\n\nYou understand that use of our Services may result in charges to you for the services or food and drinks you receive from LearnHub and/or a Third-Party Provider (“Charges”). After you have received services or food and drinks obtained through your use of our Service, LearnHub will facilitate your payment of the applicable Charges on behalf of the Third-Party Provider as such Third-Party Provider\'s limited payment collection agent. Payment of the Charges in such manner shall be considered the same as payment made directly by you to the Third-Party Provider. Charges may include other applicable fees, delivery fees, account maintenance fees, and/or surcharges including an order fee, cancellation fee, national, provincial and municipal surcharges and processing fees for split payments, and will be inclusive of applicable taxes where required by law. Charges paid by you are final and non-refundable, unless otherwise determined by LearnHub. You retain the right to request lower Charges from LearnHub or a Third-Party Provider for services or food and drinks received by you from LearnHub or such Third-Party Provider at the time you receive such services or food and drinks. LearnHub will respond accordingly to any request from a Third-Party Provider to modify the Charges for a particular service or food and drink.
+\n\nAll Charges are due immediately and payment will be facilitated by LearnHub using the preferred payment method you opt for.
+\n\nAs between you and LearnHub, LearnHub reserves the right to establish, remove and/or revise Charges for any or all services or food and drinks obtained through the use of our Services at any time in LearnHub\'s sole discretion. Furthermore, you acknowledge and agree that Charges applicable in certain geographical areas may increase substantially during times of high demand. LearnHub will use reasonable efforts to inform you of Charges that may apply, provided that you will be responsible for Charges incurred under your Account regardless of your awareness of such Charges or the amounts thereof. LearnHub may from time to time provide certain users with promotional offers and discounts that may result in different amounts charged for the same or similar services or food and drinks obtained through the use of the Services, and you agree that such promotional offers and discounts, unless also made available to you, shall have no bearing on your use of the Services or the Charges applied to you.
+\n\nThis payment structure is intended to fully compensate LearnHub or the Third-Party Provider for the food or drinks services provided. It must be noted that LearnHub does not designate any portion of your payment as a tip or gratuity to the Third-Party Provider. Any representation by LearnHub (on LearnHub\'s website, in the Application, or in LearnHub\'s marketing materials) to the effect that tipping is “voluntary,” “not required,” and/or “included” in the payments you make for the food and drinks services provided is not intended to suggest that LearnHub provides any additional amounts, beyond those described above, to the Third-Party Provider. You understand and agree that, while you are free to provide additional payment as a gratuity to any Third-Party Provider who provides you with services or food or drinks obtained through the Service, you are under no obligation to do so. Gratuities are voluntary. After you have received services or food or drinks obtained through the Service, you will have the opportunity to rate your experience and leave additional feedback about your Third-Party Provider.
+\n\n\n5. Disclaimers; Limitation of Liability; Indemnity.
+\n\nDisclaimer.
+\n\nThe services are provided “as is” and “as available.” LearnHub disclaims all representations and warranties, express, implied or statutory, not expressly set out in these terms, including the implied warranties of merchantability, fitness for a particular purpose and non-infringement. in addition, LearnHub makes no representation, warranty, or guarantee regarding the reliability, timeliness, quality, suitability or availability of the services or any services or food or drinks requested through the use of the services, or that the services will be uninterrupted or error-free. LearnHub does not guarantee the quality, suitability, safety or ability of third-party providers. You agree that the entire risk arising out of your use of the services, and any service or food or drinks requested in connection therewith, remains solely with you, to the maximum extent permitted under applicable law.
+\n\n\nLimitation of liability.
+\n\nLearnHub shall not be liable for indirect, incidental, special, exemplary, punitive or consequential damages, including lost profits, lost data, health issues, personal injury or property damage related to, in connection with, or otherwise resulting from any use of the services, even if LearnHub has been advised of the possibility of such damages. LearnHub shall not be liable for any damages, health issues, liability or losses arising out of: \n\n(i) your use of or reliance on the services or your inability to access or use the services; or \n\n(ii) any transaction or relationship between you and LearnHub and any third-party provider, even if LearnHub has been advised of the possibility of such damages. LearnHub shall not be liable for delay or failure in performance resulting from causes beyond LearnHub\'s reasonable control. You acknowledge that third party service providers providing food and drinks services and other services may not be professionally licensed or permitted. In no event shall LearnHub\'s total liability to you in connection with the services for all damages, losses and causes of action exceed three hundred dollars ($300).
+\n\nLearnHub\'s services may be used by you to request and schedule for any food or drink services with either LearnHub or third-party providers, but you agree that LearnHub has no responsibility or liability to you related to any food or drink services provided to you by third party providers other than as expressly set forth in these terms.
+\n\nThe limitations and disclaimer do not purport to limit liability or alter your rights as a consumer that cannot be excluded under applicable law.
+\n\n\nIndemnity.
+\n\nYou agree to indemnify and hold LearnHub and its officers, directors, employees and agents harmless from any and all claims, demands, losses, liabilities, and expenses (including attorneys\' fees) arising out of or in connection with: \n\n(i) your use of the Services or food and drinks obtained through your use of the Services; \n\n(ii) your breach or violation of any of these Terms; \n\n(iii) LearnHub\'s use of your User Content; or \n\n(iv) your violation of the rights of any third party, including Third Party Providers.
+\n\n\n7. Governing Law; Arbitration.
+\n\nExcept as otherwise set forth in these Terms, these Terms shall be exclusively governed by and construed in accordance with the laws of Ghana, excluding its rules on conflicts of laws. Any dispute, conflict, claim or controversy arising out of or broadly in connection with or relating to the Services or these Terms, including those relating to its validity, its construction or its enforceability (any “Dispute”) shall be first mandatorily submitted to mediation proceedings under the International Chamber of Commerce Mediation Rules (“ICC Mediation Rules”). If such Dispute has not been settled within sixty (60) days after a request for mediation has been submitted under such ICC Mediation Rules, such Dispute can be referred to and shall be exclusively and finally resolved by arbitration under the Rules of Arbitration of the International Chamber of Commerce (“ICC Arbitration Rules”). The ICC Rules\' Emergency Arbitrator provisions are excluded. The Dispute shall be resolved by one (1) arbitrator to be appointed in accordance with the ICC Rules. The language of the mediation and/or arbitration shall be English, unless you do not speak English, in which case the mediation and/or arbitration shall be conducted in both English and your native language. The existence and content of the mediation and arbitration proceedings, including documents and briefs submitted by the parties, correspondence from and to the International Chamber of Commerce, correspondence from the mediator, and correspondence, orders and awards issued by the sole arbitrator, shall remain strictly confidential and shall not be disclosed to any third party without the express written consent from the other party unless: \n\n(i) the disclosure to the third party is reasonably required in the context of conducting the mediation or arbitration proceedings; and \n\n(ii) the third party agrees unconditionally in writing to be bound by the confidentiality obligation stipulated herein.
+
+
+\n\n\n8. Other Provisions
+\n\nClaims of Copyright Infringement.
+\n\nClaims of copyright infringement should be sent to LearnHub\'s designated agent.
+\n\n\nNotice.
+\n\nLearnHub may give notice by means of a general notice on the Services, text to your phone number, electronic mail to your email address in your Account, or by written communication sent to your address as set forth in your Account.
+\n\n\nGeneral.
+\n\nYou give your approval to LearnHub for it to assign or transfer these Terms in whole or in part, including to: \n\n(i) a subsidiary or affiliate; \n\n(ii) an acquirer of LearnHub\'s equity, business or assets; or \n\n(iii) a successor by merger. No joint venture, partnership, employment or agency relationship exists between you, LearnHub or any Third-Party Provider as a result of the contract between you and LearnHub or use of the Services.
+\n\nIf any provision of these Terms is held to be illegal, invalid or unenforceable, in whole or in part, under any law, such provision or part thereof shall to that extent be deemed not to form part of these Terms but the legality, validity and enforceability of the other provisions in these Terms shall not be affected. In that event, the parties shall replace the illegal, invalid or unenforceable provision or part thereof with a provision or part thereof that is legal, valid and enforceable and that has, to the greatest extent possible, a similar effect as the illegal, invalid or unenforceable provision or part thereof, given the contents and purpose of these Terms. These Terms constitute the entire agreement and understanding of the parties with respect to its subject matter and replaces and supersedes all prior or contemporaneous agreements or undertakings regarding such subject matter. In these Terms, the words “including” and “include” mean “including, but not limited to.
+\n\n\nReference
+\n\nLearnHub acknowledges publicly that references have been made from SnapChat, Twitter and Uber with respect to our Terms of Services and Privacy Policy drafts.
+</string>
+</resources>

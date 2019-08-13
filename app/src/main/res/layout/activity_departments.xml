@@ -1,0 +1,484 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
+    tools:context="deemiensa.com.learnhub.Activities.Departments"
+    android:background="@color/black">
+
+  <ScrollView
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:outlineAmbientShadowColor="@color/colorAccent"
+      android:outlineSpotShadowColor="@color/colorAccent">
+
+      <LinearLayout
+          android:id="@+id/colleges"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:orientation="vertical">
+
+          <LinearLayout
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:orientation="vertical">
+
+              <RelativeLayout
+                  android:id="@+id/cos_rel"
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content">
+
+                  <TextView
+                      android:id="@+id/cos"
+                      android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:text="College of Science"
+                      android:textColor="@color/white"
+                      android:textSize="20sp"
+                      android:padding="10dp"
+                      />
+
+                  <ImageView
+                      android:id="@+id/cos_arrow"
+                      android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:src="@drawable/ic_arrow_drop_down_white_24dp"
+                      android:layout_centerVertical="true"
+                      android:layout_alignParentRight="true"
+                      android:layout_alignParentEnd="true" />
+
+              </RelativeLayout>
+
+              <LinearLayout
+                  android:id="@+id/cos_faculties"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:orientation="vertical"
+                  android:layout_marginLeft="20dp"
+                  android:layout_marginStart="20dp"
+                  android:visibility="gone">
+
+                  <RelativeLayout
+                      android:id="@+id/bio_sci_rel"
+                      android:layout_width="match_parent"
+                      android:layout_height="wrap_content">
+
+                      <TextView
+                          android:id="@+id/bio_sci"
+                          android:layout_width="wrap_content"
+                          android:layout_height="wrap_content"
+                          android:text="Biosciences"
+                          android:textColor="@color/white"
+                          android:textSize="16sp"
+                          android:padding="10dp"/>
+
+                      <ImageView
+                          android:id="@+id/bio_sci_arrow"
+                          android:layout_width="wrap_content"
+                          android:layout_height="wrap_content"
+                          android:src="@drawable/ic_arrow_drop_down_white_24dp"
+                          android:layout_centerVertical="true"
+                          android:layout_alignParentRight="true"
+                          android:layout_marginRight="20dp"
+                          android:layout_alignParentEnd="true" />
+
+
+                  </RelativeLayout>
+                      <!--genesis-->
+
+                      <LinearLayout
+                          android:id="@+id/bio_sci_dept"
+                          android:layout_width="match_parent"
+                          android:layout_height="wrap_content"
+                          android:orientation="vertical"
+                          android:layout_marginLeft="20dp"
+                          android:layout_marginStart="20dp"
+                          android:visibility="gone"
+                          android:paddingRight="30dp">
+
+                              <TextView
+                                  android:id="@+id/bio_chem"
+                                  android:layout_width="match_parent"
+                                  android:layout_height="wrap_content"
+                                  android:text="Biochemistry and Biotechnology"
+                                  android:textColor="@color/white"
+                                  android:textSize="16sp"
+                                  android:padding="10dp"
+                                  android:layout_marginBottom="10dp"
+                                  android:background="@drawable/black_rounded_button"/>
+
+                              <TextView
+                                  android:id="@+id/env_sci"
+                                  android:layout_width="match_parent"
+                                  android:layout_height="wrap_content"
+                                  android:text="Environmental Sciences"
+                                  android:textColor="@color/white"
+                                  android:textSize="16sp"
+                                  android:padding="10dp"
+                                  android:layout_marginBottom="10dp"
+                                  android:background="@drawable/black_rounded_button"/>
+
+                          <TextView
+                              android:id="@+id/food_sci"
+                              android:layout_width="match_parent"
+                              android:layout_height="wrap_content"
+                              android:text="Food Science and Technology"
+                              android:textColor="@color/white"
+                              android:textSize="16sp"
+                              android:padding="10dp"
+                              android:layout_marginBottom="10dp"
+                              android:background="@drawable/black_rounded_button"/>
+
+                          <TextView
+                              android:id="@+id/optometry"
+                              android:layout_width="match_parent"
+                              android:layout_height="wrap_content"
+                              android:text="Optometry and Visual Science"
+                              android:textColor="@color/white"
+                              android:textSize="16sp"
+                              android:padding="10dp"
+                              android:layout_marginBottom="10dp"
+                              android:background="@drawable/black_rounded_button"/>
+
+                          <TextView
+                              android:id="@+id/app_bio"
+                              android:layout_width="match_parent"
+                              android:layout_height="wrap_content"
+                              android:text="Theoretical and Applied Biology"
+                              android:textColor="@color/white"
+                              android:textSize="16sp"
+                              android:padding="10dp"
+                              android:layout_marginBottom="10dp"
+                              android:background="@drawable/black_rounded_button"/>
+
+                      </LinearLayout>
+
+                      <!--revelation-->
+                  <RelativeLayout
+                      android:id="@+id/phy_sci_rel"
+                      android:layout_width="match_parent"
+                      android:layout_height="wrap_content">
+
+                      <TextView
+                          android:id="@+id/phy_sci"
+                          android:layout_width="match_parent"
+                          android:layout_height="wrap_content"
+                          android:text="Physical Sciences"
+                          android:textColor="@color/white"
+                          android:textSize="16sp"
+                          android:padding="10dp"/>
+
+                      <ImageView
+                          android:id="@+id/phy_sci_arrow"
+                          android:layout_width="wrap_content"
+                          android:layout_height="wrap_content"
+                          android:src="@drawable/ic_arrow_drop_down_white_24dp"
+                          android:layout_centerVertical="true"
+                          android:layout_alignParentRight="true"
+                          android:layout_marginRight="20dp"
+                          android:layout_alignParentEnd="true" />
+
+                  </RelativeLayout>
+
+                  <LinearLayout
+                      android:id="@+id/phy_sci_dept"
+                      android:layout_width="match_parent"
+                      android:layout_height="wrap_content"
+                      android:orientation="vertical"
+                      android:layout_marginLeft="20dp"
+                      android:layout_marginStart="20dp"
+                      android:paddingRight="30dp"
+                      android:visibility="gone">
+
+                      <TextView
+                          android:id="@+id/chem"
+                          android:layout_width="match_parent"
+                          android:layout_height="wrap_content"
+                          android:text="Chemistry"
+                          android:textColor="@color/white"
+                          android:textSize="16sp"
+                          android:padding="10dp"
+                          android:layout_marginBottom="10dp"
+                          android:background="@drawable/black_rounded_button"/>
+
+                      <TextView
+                          android:id="@+id/comp_sci"
+                          android:layout_width="match_parent"
+                          android:layout_height="wrap_content"
+                          android:text="Computer Science"
+                          android:textColor="@color/white"
+                          android:textSize="16sp"
+                          android:padding="10dp"
+                          android:layout_marginBottom="10dp"
+                          android:background="@drawable/black_rounded_button"/>
+
+                      <TextView
+                          android:id="@+id/maths"
+                          android:layout_width="match_parent"
+                          android:layout_height="wrap_content"
+                          android:text="Mathematics"
+                          android:textColor="@color/white"
+                          android:textSize="16sp"
+                          android:padding="10dp"
+                          android:layout_marginBottom="10dp"
+                          android:background="@drawable/black_rounded_button"/>
+
+                      <TextView
+                          android:id="@+id/physics"
+                          android:layout_width="match_parent"
+                          android:layout_height="wrap_content"
+                          android:text="Physics"
+                          android:textColor="@color/white"
+                          android:textSize="16sp"
+                          android:padding="10dp"
+                          android:layout_marginBottom="10dp"
+                          android:background="@drawable/black_rounded_button"/>
+
+                      <TextView
+                          android:id="@+id/stats"
+                          android:layout_width="match_parent"
+                          android:layout_height="wrap_content"
+                          android:text="Statistics"
+                          android:textColor="@color/white"
+                          android:textSize="16sp"
+                          android:padding="10dp"
+                          android:layout_marginBottom="10dp"
+                          android:background="@drawable/black_rounded_button"/>
+
+                      <TextView
+                          android:id="@+id/act_sci"
+                          android:layout_width="match_parent"
+                          android:layout_height="wrap_content"
+                          android:text="Actuarial Science"
+                          android:textColor="@color/white"
+                          android:textSize="16sp"
+                          android:padding="10dp"
+                          android:layout_marginBottom="10dp"
+                          android:background="@drawable/black_rounded_button"/>
+
+                  </LinearLayout>
+
+              </LinearLayout>
+
+              <View
+                  android:layout_width="match_parent"
+                  android:layout_height="1dp"
+                  android:background="@color/grey"/>
+
+          </LinearLayout>
+
+
+
+
+
+          <RelativeLayout
+              android:id="@+id/cohss_rel"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content">
+
+              <TextView
+                  android:id="@+id/cohss"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:text="College of Humanities and Social Sciences"
+                  android:textColor="@color/white"
+                  android:textSize="20sp"
+                  android:padding="10dp"
+                  android:layout_marginTop="10dp"
+                  android:layout_marginBottom="10dp"
+                  />
+
+              <ImageView
+                  android:id="@+id/cohss_arrow"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:src="@drawable/ic_arrow_drop_down_white_24dp"
+                  android:layout_centerVertical="true"
+                  android:layout_alignParentRight="true"
+                  android:layout_alignParentEnd="true" />
+
+              <View
+                  android:layout_width="match_parent"
+                  android:layout_height="1dp"
+                  android:background="@color/grey"
+                  android:layout_below="@+id/cohss"/>
+
+          </RelativeLayout>
+
+          <RelativeLayout
+              android:id="@+id/coh_rel"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content">
+
+              <TextView
+                  android:id="@+id/coh"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:text="College of Health Science"
+                  android:textColor="@color/white"
+                  android:textSize="20sp"
+                  android:padding="10dp"
+                  android:layout_marginTop="10dp"
+                  android:layout_marginBottom="10dp"
+                  />
+
+              <ImageView
+                  android:id="@+id/coh_arrow"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:src="@drawable/ic_arrow_drop_down_white_24dp"
+                  android:layout_centerVertical="true"
+                  android:layout_alignParentRight="true"
+                  android:layout_alignParentEnd="true" />
+
+              <View
+                  android:layout_width="match_parent"
+                  android:layout_height="1dp"
+                  android:background="@color/grey"
+                  android:layout_below="@+id/coh"/>
+
+          </RelativeLayout>
+
+          <RelativeLayout
+              android:id="@+id/cass_rel"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content">
+
+              <TextView
+                  android:id="@+id/cass"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:text="College of Allied and Applied Sciences"
+                  android:textColor="@color/white"
+                  android:textSize="20sp"
+                  android:padding="10dp"
+                  android:layout_marginTop="10dp"
+                  android:layout_marginBottom="10dp"
+                  />
+
+              <ImageView
+                  android:id="@+id/cass_arrow"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:src="@drawable/ic_arrow_drop_down_white_24dp"
+                  android:layout_centerVertical="true"
+                  android:layout_alignParentRight="true"
+                  android:layout_alignParentEnd="true" />
+
+              <View
+                  android:layout_width="match_parent"
+                  android:layout_height="1dp"
+                  android:background="@color/grey"
+                  android:layout_below="@+id/cass"/>
+
+          </RelativeLayout>
+
+          <RelativeLayout
+              android:id="@+id/cabesa_rel"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content">
+
+              <TextView
+                  android:id="@+id/cabesa"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:text="College of Art and Built Environment"
+                  android:textColor="@color/white"
+                  android:textSize="20sp"
+                  android:padding="10dp"
+                  android:layout_marginTop="10dp"
+                  android:layout_marginBottom="10dp"
+                  />
+
+              <ImageView
+                  android:id="@+id/cabesa_arrow"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:src="@drawable/ic_arrow_drop_down_white_24dp"
+                  android:layout_centerVertical="true"
+                  android:layout_alignParentRight="true"
+                  android:layout_alignParentEnd="true" />
+
+              <View
+                  android:layout_width="match_parent"
+                  android:layout_height="1dp"
+                  android:background="@color/grey"
+                  android:layout_below="@+id/cabesa"/>
+
+          </RelativeLayout>
+
+          <RelativeLayout
+              android:id="@+id/coe_rel"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content">
+
+              <TextView
+                  android:id="@+id/coe"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:text="College of Engineering"
+                  android:textColor="@color/white"
+                  android:textSize="20sp"
+                  android:padding="10dp"
+                  android:layout_marginTop="10dp"
+                  android:layout_marginBottom="10dp"
+                  />
+
+              <ImageView
+                  android:id="@+id/coe_arrow"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:src="@drawable/ic_arrow_drop_down_white_24dp"
+                  android:layout_centerVertical="true"
+                  android:layout_alignParentRight="true"
+                  android:layout_alignParentEnd="true" />
+
+              <View
+                  android:layout_width="match_parent"
+                  android:layout_height="1dp"
+                  android:background="@color/grey"
+                  android:layout_below="@+id/coe"/>
+
+          </RelativeLayout>
+
+          <RelativeLayout
+              android:id="@+id/coa_rel"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content">
+
+              <TextView
+                  android:id="@+id/coa"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:text="College of Agriculture"
+                  android:textColor="@color/white"
+                  android:textSize="20sp"
+                  android:padding="10dp"
+                  android:layout_marginTop="10dp"
+                  android:layout_marginBottom="10dp"
+                  />
+
+              <ImageView
+                  android:id="@+id/coa_arrow"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:src="@drawable/ic_arrow_drop_down_white_24dp"
+                  android:layout_centerVertical="true"
+                  android:layout_alignParentRight="true"
+                  android:layout_alignParentEnd="true" />
+
+              <View
+                  android:layout_width="match_parent"
+                  android:layout_height="1dp"
+                  android:background="@color/grey"
+                  android:layout_below="@+id/coa"/>
+
+          </RelativeLayout>
+
+      </LinearLayout>
+
+  </ScrollView>
+</LinearLayout>

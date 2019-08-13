@@ -1,0 +1,132 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 28
+    //buildToolsVersion '28.0.2'
+    defaultConfig {
+        applicationId "deemiensa.com.learnhub"
+        minSdkVersion 16
+        targetSdkVersion 28
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+        // Third party devs:  pls be ethical and change the below keys
+        buildConfigField 'String', 'YOUTUBE_API_KEYS_DEBUG', '"AIzaSyDU-ZZCyOB_kYkiMSZ6ooSipUZRukHU4ik"'
+        buildConfigField 'String[]', 'YOUTUBE_API_KEYS',
+                '{' +
+                        '"AIzaSyC27jgPDHkQsQK8TW4ngrQprSCnlMTJ04w",' +
+                        '"AIzaSyCmXsaE6ZW14-1vM5zceWnGWnB73FkY7U4",' +
+                        '"AIzaSyBd3Loyy_XN2tPHPfc1E7EkSkdCqfzTHxg"' +
+                        '}'
+        buildConfigField 'String', 'SKYTUBE_WEBSITE', '"https://skytube-app.com"'
+        buildConfigField 'String', 'SKYTUBE_WEBSITE_CREDITS', '"https://skytube-app.com/credits.html"'
+        buildConfigField 'String', 'SKYTUBE_UPDATES_URL', '"https://api.github.com/repos/ram-on/SkyTube/releases/latest"'
+
+        vectorDrawables.useSupportLibrary true
+        multiDexEnabled true    // as we have over 65536 lines of code...
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    flavorDimensions "learnhub"
+    productFlavors {
+        // 100% Open-Source Edition
+        oss {
+            applicationId "deemiensa.com.learnhub.oss"
+            resValue "string", "app_name", "LearnHub"
+            dimension "learnhub"
+        }
+        // 99% Open-source edition:  uses the YouTube Player Jar [i.e. proprietary module - optional usage]
+        extra {
+            applicationId "deemiensa.com.learnhub.extra"
+            resValue "string", "app_name_alias", "LearnHub Extra"
+            dimension "learnhub"
+        }
+    }
+    configurations.all {
+        resolutionStrategy.force 'com.google.code.findbugs:jsr305:1.3.9'
+    }
+}
+
+dependencies {
+    // Android support modules
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation 'com.android.support:appcompat-v7:28.0.0'
+    implementation 'com.android.support.constraint:constraint-layout:1.1.3'
+    implementation 'com.android.support:design:28.0.0'
+    implementation 'com.android.support:support-v4:28.0.0'
+    implementation 'com.android.support:support-v13:28.0.0'
+    implementation 'com.android.support:recyclerview-v7:28.0.0'
+    implementation 'com.android.support:cardview-v7:28.0.0'
+    implementation 'com.android.support:palette-v7:28.0.0'
+    implementation 'com.android.support:preference-v7:28.0.0'
+    implementation 'com.android.support:preference-v14:28.0.0'
+    implementation 'com.android.support:multidex:1.0.3' // as we have over 65536 lines of code...
+    implementation 'com.google.android.gms:play-services-auth:16.0.1'
+    implementation 'com.google.firebase:firebase-messaging:17.3.4'
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'com.android.support.test:runner:1.0.2'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+
+    // YouTube modules
+    implementation 'com.google.http-client:google-http-client-android:1.23.0'
+    implementation 'com.google.apis:google-api-services-youtube:v3-rev187-1.23.0'
+    implementation 'com.github.TeamNewPipe:NewPipeExtractor:v0.14.1'
+
+    // other modules
+    implementation group: 'org.ocpsoft.prettytime', name: 'prettytime', version: '4.0.1.Final'
+    implementation 'com.github.moraisigor:slidingdrawer:1.6.7'
+    implementation 'com.github.bumptech.glide:glide:4.4.0'
+    implementation 'com.jakewharton:butterknife:8.8.1'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
+    implementation 'com.google.code.gson:gson:2.8.2'
+    implementation group: 'joda-time', name: 'joda-time', version: '2.9.9'
+    implementation 'com.afollestad.material-dialogs:core:0.9.5.0'
+    implementation 'com.github.angads25:filepicker:1.1.1'
+    implementation 'com.google.android.exoplayer:exoplayer:2.8.2'
+    implementation 'com.klinkerapps:link_builder:1.6.1'
+    implementation(group: 'com.optimaize.languagedetector', name: 'language-detector', version: '0.6') {
+        exclude group: 'com.google.guava', module: 'guava'
+    }
+    implementation 'com.mikepenz:actionitembadge:3.3.2@aar'
+    implementation "com.mikepenz:iconics-core:3.0.3@aar"
+
+    // proprietary module
+    extraImplementation files('libs/YouTubeAndroidPlayerApi.jar')
+
+    // firebase dependencies
+    implementation 'com.google.firebase:firebase-auth:16.1.0'
+    implementation 'com.google.firebase:firebase-database:16.0.5'
+    implementation 'com.google.firebase:firebase-storage:16.0.5'
+    implementation 'com.google.firebase:firebase-core:16.0.6'
+    implementation 'com.firebaseui:firebase-ui-database:3.3.1'
+
+    //circle imageView
+    implementation 'de.hdodenhof:circleimageview:2.2.0'
+
+    // for  displaying video gallery
+    implementation 'com.bignerdranch.android:recyclerview-multiselect:0.2'
+
+    implementation 'com.warnyul.android.fast-video-view:fast-video-view:1.0.2'
+    implementation 'com.yqritc:android-scalablevideoview:1.0.4'
+    implementation 'com.writingminds:FFmpegAndroid:0.3.2'
+    implementation 'org.florescu.android.rangeseekbar:rangeseekbar-library:0.3.0'
+    implementation 'com.dinuscxj:circleprogressbar:1.3.0'
+    implementation 'android.arch.lifecycle:extensions:1.1.1'
+    implementation 'com.intuit.sdp:sdp-android:1.0.6'
+
+    // other dependencies
+    implementation 'id.zelory:compressor:2.1.0'
+    implementation 'com.squareup.okhttp:okhttp:2.5.0'
+    implementation 'com.opentok.android:opentok-android-sdk:2.14.1'
+    implementation 'com.android.volley:volley:1.1.0'
+    implementation 'pub.devrel:easypermissions:0.4.0'
+    implementation 'com.theartofdev.edmodo:android-image-cropper:2.7.+'
+    implementation 'com.yarolegovich:lovely-dialog:1.0.4'
+}
+
+apply plugin: 'com.google.gms.google-services'

@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="deemiensa.com.learnhub">
+    <!-- To auto-complete the email text field in the login form with the user's emails -->
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <uses-permission android:name="android.permission.READ_PROFILE" />
+    <uses-permission android:name="android.permission.READ_CONTACTS" /> <!-- internet permission -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" /> <!-- permission for using oauth2 -->
+    <!-- <uses-permission android:name="android.permission.ACCOUNT_MANAGER"/> -->
+    <!-- permission for using oauth2 -->
+    <uses-permission
+        android:name="android.permission.ACCOUNT_MANAGER"
+        tools:ignore="ProtectedPermissions" />
+    <uses-permission android:name="android.permission.READ_CALL_LOG" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.READ_USER_DICTIONARY" />
+    <uses-permission android:name="android.permission.WRITE_USER_DICTIONARY" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission
+        android:name="android.permission.ACCESS_MOCK_LOCATION"
+        tools:ignore="MockLocation,ProtectedPermissions" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+
+    <application
+        android:name=".App.SkyTubeApp"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher_logo"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme.Base"
+        tools:replace="android:theme">
+        <activity android:name=".Activities.MyChannel"
+            android:label="My Channel"
+            android:parentActivityName=".Activities.MyChannel"
+            android:theme="@style/AppTheme"/>
+        <activity
+            android:name=".Activities.Feedback"
+            android:label="Help &amp; Feedback"
+            android:parentActivityName=".Activities.Feedback"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".Activities.Terms"
+            android:label="Terms &amp; Privacy Policy"
+            android:parentActivityName=".Activities.Terms"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".Activities.Profile"
+            android:label="My Profile"
+            android:parentActivityName=".Activities.Profile"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".Activities.Users"
+            android:label="All Users"
+            android:parentActivityName=".Activities.Users"
+            android:theme="@style/AppTheme" />
+        <activity android:name=".Activities.VideoChat" />
+        <activity
+            android:name=".Activities.PlayVideo"
+            android:theme="@style/AppTheme.NoActionBar2" /> <!-- This will allow the app to use update its self (due to security changes in Android 7.0+) -->
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="${applicationId}.provider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/provider_paths" />
+        </provider>
+
+        <activity
+            android:name=".App.MainActivity"
+            android:icon="@drawable/toolbar"
+            android:label="LearnHUB"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".Miscellaneous.SplashActivity"
+            android:noHistory="true"
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".Miscellaneous.OnBoardingActivity"
+            android:noHistory="true"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".gui.activities.YouTubePlayerActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:theme="@style/VideoPlayerActivityTheme">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data android:scheme="http" />
+                <data android:scheme="https" />
+                <data android:host="youtube.com" />
+                <data android:host="m.youtube.com" />
+                <data android:host="www.youtube.com" />
+                <data android:host="youtu.be" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".gui.activities.PreferencesActivity" />
+        <activity
+            android:name=".gui.activities.ThumbnailViewerActivity"
+            android:theme="@style/NoActionBarActivityTheme" /> <!-- <service android:name=".businessobjects.FeedUpdaterService"/> -->
+        <!-- <receiver -->
+        <!-- android:name=".businessobjects.FeedUpdaterSetupReceiver" -->
+        <!-- android:enabled="true"> -->
+        <!-- <intent-filter> -->
+        <!-- <action android:name="android.intent.action.BOOT_COMPLETED"/> -->
+        <!-- </intent-filter> -->
+        <!-- </receiver> -->
+        <!-- <receiver -->
+        <!-- android:name=".businessobjects.FeedUpdaterReceiver" -->
+        <!-- android:enabled="true"> -->
+        <!-- </receiver> -->
+        <activity
+            android:name=".gui.activities.PermissionsActivity"
+            android:theme="@style/TransparentActivity" />
+        <activity android:name=".Activities.VideoPreview" />
+        <activity
+            android:name=".Activities.LoginActivity"
+            android:label="@string/title_activity_login"
+            android:theme="@style/AppTheme.NoActionBar2" />
+        <activity
+            android:name=".Activities.SignUp"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".Activities.FilePreview"
+            android:label="Add Details"
+            android:parentActivityName=".Activities.Activity_galleryview"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".Activities.Login1"
+            android:noHistory="true"
+            android:theme="@style/AppTheme.NoActionBar2" />
+        <activity
+            android:name=".Activities.Activity_galleryview"
+            android:label="Add Details"
+            android:parentActivityName=".Activities.Activity_galleryview"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".Activities.LecturerSignIn"
+            android:theme="@style/AppTheme.NoActionBar2" />
+        <activity
+            android:name=".Activities.Departments"
+            android:label="Choose Department"
+            android:parentActivityName=".Activities.Departments"
+            android:theme="@style/AppTheme" />
+
+        <service android:name=".Tasks.MyUploadService" />
+        <service android:name=".Tasks.MyDownloadService" />
+        <service android:name=".Tasks.MyDocsUploadService" />
+    </application>
+
+</manifest>

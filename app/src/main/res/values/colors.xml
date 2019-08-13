@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#1d1d1b</color>
+    <color name="colorPrimaryDark">#000000</color>
+    <color name="colorPrimaryDarkMin">#FF4500</color>
+    <color name="colorAccent">#ff6600</color>
+    <color name="gradientPrimary">#ff6600</color>
+    <color name="gradientSecondary">#ffaa00</color>
+
+    <color name="skytube_theme_colour">#ff6600</color>
+
+    <!--Logo and other colours-->
+    <color name="yellow">#ffeb00</color>
+    <color name="orange">#f15a29</color>
+    <color name="yellow_orange">#f59b23</color>
+    <!--<color name="white">#fff</color>
+    <color name="black">#222222</color>-->
+    <color name="oldcolorAccent">#7c0000</color>
+    <color name="ash">#e1e1e1</color>
+    <color name="ashed">#888888</color>
+    <color name="dark_ash">#333333</color>
+    <color name="black_light">#282828</color>
+    <color name="logo_black">#231F20</color>
+
+    <!--OnBoard-->
+
+    <color name="selected_dot">#f15a29</color>
+    <color name="idle_dot">#ffffff</color>
+    <color name="ob_header">#4A4A4A</color>
+    <color name="ob_desc">#4A4A4A</color>
+
+    <color name="semitransparent">#88000000</color>
+
+
+    <color name="grey">#bfbfbf</color>
+    <color name="link_blue">#4d94ff</color>
+    <color name="darkRed">#cc0000</color>
+    <color name="colordarkRed">#cc0000</color>
+
+    <color name="mcam_color_light">#FAFAFA</color>
+    <color name="mcam_color_dark">#424242</color>
+
+
+    <color name="faint_white">#22ffffff</color>
+    <color name="faint_black">#22000000</color>
+    <color name="faint_grey">#22666666</color>
+    <color name="clear">#0000</color>
+
+    <color name="darkwhite">#eeeeee</color>
+    <color name="transparent">#00ffffff</color>
+    <color name="deep_orange">#ff6600</color>
+    <color name="dark_orange">#BD5F01</color>
+    <color name="light_orange">#ffe27d18</color>
+    <color name="light_blue">#ff00a2e8</color>
+    <color name="menuButtonColor">#ffea8e44</color>
+
+
+    <color name="blue">#3411C3</color>
+    <color name="dark_blue">#261091</color>
+
+    <color name="green">#5D600A</color>
+    <color name="dark_green">#4B4E09</color>
+
+    <color name="red">#B70717</color>
+    <color name="dark_red">#910717</color>
+
+
+
+
+    <color name="violet">#673AB7</color>
+    <color name="violet_trans_80">#BF673AB7</color>
+
+
+    <color name="red_logout">#E95354</color>
+
+    <color name="white_transparent_80">#BFFFFFFF</color>
+
+    <color name="primary_text">#212121</color>
+    <color name="secondary_text">#727272</color>
+    <color name="chrome_grey">#F2F2F2</color>
+    <color name="txt_profile">#2C4058</color>
+
+
+    <!--shimmer-->
+    <color name="demo_light_transparent">#16000000</color>
+    <color name="demo_dark_transparent">#24000000</color>
+
+
+
+
+    <color name="black_25_transparent">#40000000</color>
+
+
+
+    <color name="grey_trans">#c7c7c7</color>
+
+
+
+    <!--
+		Material Dialog Colors
+	-->
+    <color name="dialog_title">#000</color>
+    <color name="dialog_backgound">#FFF</color>
+    <color name="dialog_content_text">#000</color>
+    <color name="dialog_positive_text">@color/colorAccent</color>
+    <color name="dialog_negative_text">@color/colorAccent</color>
+    <color name="dialog_neutral_text">@color/colorAccent</color>
+    <color name="dialog_row_0">#F0F0F0</color>
+    <color name="dialog_row_1">@color/dialog_backgound</color>
+
+
+    <!--
+        Subs Drawer Colours
+    -->
+    <color name="subs_drawer_background">#CC21272B</color>
+    <drawable name="sub_channel_pressed">@color/colorAccent</drawable>
+    <drawable name="sub_channel">@android:color/transparent</drawable>
+    <color name="subs_text">#FFF</color>
+
+    <drawable name="subscribe_button">@color/skytube_theme_colour</drawable>
+    <drawable name="subscribe_button_pressed">#ff8e44</drawable>
+
+
+    <!--
+        HomeVideo (Grid) Cells
+    -->
+    <color name="video_cell_background">#111517</color>
+    <color name="video_cell_text_main">#F5F5F5</color>
+    <color name="video_cell_text_details">#808080</color>
+    <color name="grid_view_background">@color/colorPrimaryDark</color>
+    <color name="popup_menu">#FF303030</color>  <!-- Identical to @color/background_material_dark -->
+
+
+    <!--
+        HomeVideo Player Tutorial
+    -->
+    <color name="tutorial_background">@color/colorPrimary</color>
+    <color name="tutorial_swipe_area">#277AA2</color>
+
+
+    <!--
+        HomeVideo Player Colours
+    -->
+    <!-- Actionbar background colour ~~ which is the same as com.android.internal.R.layout.media_controller
+                (used to be #BB000000) -->
+    <color name="video_player_hud">#CC000000</color>
+    <color name="video_player_drawer_background">@color/video_player_hud</color>
+    <color name="video_player_drawer_text">#b3b3b3</color>
+
+    <color name="video_desc_like_bar">@color/skytube_theme_colour</color>
+
+    <!-- Comments -->
+    <color name="comment_background">@color/video_player_hud</color>
+    <color name="comment_text">#b3b3b3</color>
+
+    <!-- Player v2 -->
+    <color name="video_player_v2_hud">#7A000000</color>
+    <color name="video_player_v2_seek_bar">@color/colorAccent</color>
+
+
+    <!--
+        Channel Browser
+    -->
+    <color name="channel_subs">@color/video_cell_text_main</color>
+    <color name="channel_about">@color/video_cell_text_main</color>
+    <color name="channel_subscribers_bkg">#66000000</color>
+
+    <color name="colorPrimaryLogin">#673ab7</color>
+    <color name="colorPrimaryDarkLogin">#673ab7</color>
+    <color name="colorSecondary">#aa00ff</color>
+    <color name="colorAccentLogin">#FF4081</color>
+    <color name="colorRed">#ff2026</color>
+    <color name="colorWhite">#FFFFFF</color>
+    <color name="colorAmber">#FFC400</color>
+    <color name="grey_100">#F5F5F5</color>
+    <color name="grey_800">#212121</color>
+    <!--
+        Subscriptions Feed
+    -->
+    <color name="feed_message_text">#FFF</color>
+</resources>

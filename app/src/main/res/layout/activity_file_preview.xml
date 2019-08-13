@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/black"
+    tools:context="deemiensa.com.learnhub.Activities.FilePreview">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:padding="10dp"
+                android:layout_margin="16dp"
+                android:text="Hello everybody"
+                android:background="@drawable/black_rounded_button"
+                android:textColor="@color/white"
+                android:textAlignment="center"/>
+
+            <View
+                android:id="@+id/view"
+                android:layout_below="@+id/textView"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#555"/>
+
+            <RelativeLayout
+                android:id="@+id/profile_rel"
+                android:layout_below="@+id/view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <LinearLayout
+                    android:id="@+id/profile_linear"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/profile_pic"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:src="@drawable/profile_image"
+                        android:scaleType="centerCrop"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginBottom="16dp"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginRight="16dp"/>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_marginTop="25dp"
+                        android:layout_marginBottom="20dp">
+
+                        <TextView
+                            android:id="@+id/name_text"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Partey Daniel Tetteh"
+                            android:textColor="@color/white"/>
+
+                        <TextView
+                            android:id="@+id/programme"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="BSc. Computer Science"
+                            android:textColor="@color/grey"/>
+
+                    </LinearLayout>
+                </LinearLayout>
+
+
+                <View
+                    android:id="@+id/view1"
+                    android:layout_below="@+id/profile_linear"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="#555"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/view1"
+                    android:orientation="vertical"
+                    android:layout_marginTop="30dp"
+                    android:padding="16dp">
+
+                    <android.support.design.widget.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:theme="@style/TextTheme"
+                        android:layout_height="wrap_content">
+
+                        <AutoCompleteTextView
+                            android:id="@+id/title"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="Title"
+                            android:textColorHint="@color/white"
+                            android:theme="@style/TextTheme"
+                            android:textColor="@color/white"
+                            android:inputType="textCapSentences|textFilter"
+                            android:maxLength="100"
+                            android:maxLines="1"
+                            android:singleLine="true" />
+
+                    </android.support.design.widget.TextInputLayout>
+
+                    <TextView
+                        android:id="@+id/title_counter"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/grey"
+                        android:text="0/100"
+                        android:layout_gravity="end"
+                        android:layout_marginBottom="16dp"/>
+
+                    <android.support.design.widget.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:theme="@style/TextTheme"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="16dp">
+
+                        <EditText
+                            android:id="@+id/description"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="Description"
+                            android:textColorHint="@color/white"
+                            android:textColor="@color/white"
+                            android:theme="@style/TextTheme"
+                            android:inputType="textCapSentences"
+                            />
+
+                    </android.support.design.widget.TextInputLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/discipline_btn"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/black_rounded_button"
+                        android:paddingStart="@dimen/_10sdp"
+                        android:paddingLeft="@dimen/_10sdp"
+                        android:paddingRight="@dimen/_10sdp">
+
+                        <TextView
+                            android:id="@+id/category"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Discipline"
+                            android:textColor="@color/white"
+                            android:textSize="18sp"
+                            android:paddingLeft="3dp"
+                            android:paddingTop="10dp"
+                            android:paddingBottom="10dp"
+                            android:layout_gravity="start"/>
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/ic_action_add"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true"
+                            android:layout_marginRight="10dp"
+                            android:layout_marginEnd="10dp"
+                            android:layout_alignParentEnd="true" />
+
+                    </RelativeLayout>
+
+                    <TextView
+                        android:id="@+id/help"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Learn More"
+                        android:textColor="@color/colorAccent"
+                        android:layout_gravity="end"
+                        android:layout_marginRight="5dp"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        />
+
+                </LinearLayout>
+
+            </RelativeLayout>
+
+            <Button
+                android:id="@+id/file_upload"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/textView"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="16dp"
+                android:text="UPLOAD FILE"
+                android:textColor="@color/white"
+                android:background="@drawable/orange_rounded_button"
+                android:visibility="gone"
+                android:padding="20dp"/>
+
+        </RelativeLayout>
+
+    </ScrollView>
+
+</RelativeLayout>
