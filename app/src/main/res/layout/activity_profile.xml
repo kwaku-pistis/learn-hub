@@ -22,12 +22,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/logo_black"
-                android:layout_marginTop="15dp"
+                android:layout_marginTop="50dp"
                 android:id="@+id/top">
 
                 <de.hdodenhof.circleimageview.CircleImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="200dp"
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
                     android:id="@+id/profile_photo"
                     android:scaleType="centerCrop"
                     android:layout_marginBottom="15dp"
@@ -75,6 +75,38 @@
                         android:paddingRight="5dp"
                         android:textColor="@color/white"
                         android:id="@+id/input_first_name"/>
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/changeProfilePhoto"
+                    android:layout_marginTop="25dp"
+                    android:focusableInTouchMode="true"
+                    android:focusable="true"
+                    android:id="@+id/relLayout_username">
+
+                    <TextView
+                        android:textStyle="bold|italic"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Username"
+                        android:id="@+id/username"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:paddingLeft="5dp"
+                        android:paddingRight="5dp"
+                        android:layout_marginBottom="10dp"
+                        android:textColor="@color/colorAccent"/>
+
+                    <TextView
+                        android:layout_width="296dp"
+                        android:layout_below="@id/username"
+                        android:layout_height="wrap_content"
+                        android:text="Username goes here"
+                        android:paddingLeft="5dp"
+                        android:paddingRight="5dp"
+                        android:textColor="@color/white"
+                        android:id="@+id/input_username_name"/>
                 </RelativeLayout>
 
                 <RelativeLayout
@@ -151,7 +183,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Email"
-                        android:id="@+id/e-mail"
+                        android:id="@+id/e_mail"
                         android:textAppearance="?android:attr/textAppearanceSmall"
                         android:paddingLeft="5dp"
                         android:paddingRight="5dp"
@@ -160,7 +192,7 @@
 
                     <TextView
                         android:layout_width="296dp"
-                        android:layout_below="@id/e-mail"
+                        android:layout_below="@+id/e_mail"
                         android:layout_height="wrap_content"
                         android:text="dtpartey@st.knust.edu.gh"
                         android:paddingLeft="5dp"

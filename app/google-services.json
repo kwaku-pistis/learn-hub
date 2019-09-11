@@ -15,11 +15,11 @@
       },
       "oauth_client": [
         {
-          "client_id": "799436008449-ppcaqhhkaqnv80e0a44pmvi8rbuhu6ea.apps.googleusercontent.com",
+          "client_id": "799436008449-nijda56750rs9d3o56loc2lrh8j9vk7m.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "deemiensa.com.learnhub.extra",
-            "certificate_hash": "e54195c7e3207bcd343e47c759e037fbc982695a"
+            "certificate_hash": "b3d2ceff0a4b9ce95ef2062f9fe7b29d0e092990"
           }
         },
         {

@@ -91,7 +91,7 @@ public class Profile extends BaseFragment {
         // Setup any handles to view objects here
         // EditText etFoo = (EditText) view.findViewById(R.id.etFoo);
 
-        mName.setText(SharedPref.getProfileName());
+        mName.setText(SharedPref.getmInstance(getContext()).getProfileName());
         Glide.with(getActivity().getApplicationContext())
                 .setDefaultRequestOptions(new RequestOptions()
                         .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)

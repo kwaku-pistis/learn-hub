@@ -153,20 +153,17 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         mAuth = FirebaseAuth.getInstance();
         databaseReference = FirebaseDatabase.getInstance().getReference().child("Students");
 
-       /* googleBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (!isNetworkConnected()) {
-                    Snackbar.make(v, "No Internet Connection", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+        googleBtn.setOnClickListener(v -> {
+            if (!isNetworkConnected()) {
+                Snackbar.make(v, "No Internet Connection", Snackbar.LENGTH_LONG).setAction("Action", null).show();
 
-                } else {
+            } else {
 
-                    if (isNetworkConnected()) {
-                        signIn();
-                    }
+                if (isNetworkConnected()) {
+                    signIn();
                 }
             }
-        });*/
+        });
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id))
@@ -257,9 +254,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     }
 
 
-
-
-
     private void signIn() {
         Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
         startActivityForResult(signInIntent, RC_SIGN_IN);
@@ -276,6 +270,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 // Google Sign In was successful, authenticate with Firebase
                 GoogleSignInAccount account = task.getResult(ApiException.class);
                 firebaseAuthWithGoogle(account);
+                Log.d(TAG, "onActivityResult: sign in successful");
             } catch (ApiException e) {
                 // Google Sign In failed, update UI appropriately
                 Log.w(TAG, "Google sign in failed", e);
@@ -287,24 +282,27 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     private void firebaseAuthWithGoogle(GoogleSignInAccount account) {
         AuthCredential credential = GoogleAuthProvider.getCredential(account.getIdToken(), null);
         mAuth.signInWithCredential(credential)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            // Sign in success, update UI with the signed-in user's information
-                            Log.d(TAG, "signInWithCredential:success");
-                            FirebaseUser user = mAuth.getCurrentUser();
-                            Log.d(TAG, user.toString());
-                            //updateUI(user);
-                        } else {
-                            // If sign in fails, display a message to the user.
-                            Log.w(TAG, "signInWithCredential:failure", task.getException());
-                            Snackbar.make(findViewById(R.id.email_sign_in_button), "Authentication Failed.", Snackbar.LENGTH_LONG).show();
-                            //updateUI(null);
-                        }
+                .addOnCompleteListener(this, task -> {
+                    if (task.isSuccessful()) {
+                        // Sign in success, update UI with the signed-in user's information
+                        Log.d(TAG, "signInWithCredential:success");
+                        FirebaseUser user = mAuth.getCurrentUser();
+                        String name = user.getDisplayName();
+                        String email = user.getEmail();
+                        String profile_pic = user.getPhotoUrl().toString();
+                        SharedPref.saveProfile(name, profile_pic, "", email, "");
 
-                        // ...
+                        startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                        //Log.d(TAG, user.toString());
+                        //updateUI(user);
+                    } else {
+                        // If sign in fails, display a message to the user.
+                        Log.w(TAG, "signInWithCredential:failure", task.getException());
+                        Snackbar.make(findViewById(R.id.email_sign_in_button), "Authentication Failed.", Snackbar.LENGTH_LONG).show();
+                        //updateUI(null);
                     }
+
+                    // ...
                 });
     }
 
@@ -325,13 +323,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         }
         if (shouldShowRequestPermissionRationale(READ_CONTACTS)) {
             Snackbar.make(mEmailView, R.string.permission_rationale, Snackbar.LENGTH_INDEFINITE)
-                    .setAction(android.R.string.ok, new View.OnClickListener() {
-                        @Override
-                        @TargetApi(Build.VERSION_CODES.M)
-                        public void onClick(View v) {
-                            requestPermissions(new String[]{READ_CONTACTS}, REQUEST_READ_CONTACTS);
-                        }
-                    });
+                    .setAction(android.R.string.ok, v -> requestPermissions(new String[]{READ_CONTACTS}, REQUEST_READ_CONTACTS));
         } else {
             requestPermissions(new String[]{READ_CONTACTS}, REQUEST_READ_CONTACTS);
         }
