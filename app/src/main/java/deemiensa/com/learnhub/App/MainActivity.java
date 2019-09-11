@@ -8,23 +8,19 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
-import android.graphics.Color;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.design.widget.TabLayout;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v4.content.ContextCompat;
-import android.support.v4.content.LocalBroadcastManager;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.SearchView;
-import android.support.v7.widget.Toolbar;
+import androidx.annotation.NonNull;
+
+import com.google.android.material.tabs.TabLayout;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.core.content.ContextCompat;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
+import androidx.appcompat.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -35,8 +31,6 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 
 import com.google.firebase.auth.FirebaseAuth;
-import com.mikepenz.actionitembadge.library.ActionItemBadge;
-import com.mikepenz.actionitembadge.library.utils.BadgeStyle;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -62,7 +56,6 @@ import deemiensa.com.learnhub.Utils.Util;
 import deemiensa.com.learnhub.businessobjects.YouTube.POJOs.YouTubeChannel;
 import deemiensa.com.learnhub.businessobjects.YouTube.POJOs.YouTubePlaylist;
 import deemiensa.com.learnhub.businessobjects.YouTube.VideoBlocker;
-import deemiensa.com.learnhub.businessobjects.db.DownloadedVideosDb;
 import deemiensa.com.learnhub.businessobjects.db.SearchHistoryDb;
 import deemiensa.com.learnhub.businessobjects.db.SearchHistoryTable;
 import deemiensa.com.learnhub.businessobjects.interfaces.SearchHistoryClickListener;
@@ -71,9 +64,7 @@ import deemiensa.com.learnhub.gui.businessobjects.BlockedVideosDialog;
 import deemiensa.com.learnhub.gui.businessobjects.MainActivityListener;
 import deemiensa.com.learnhub.gui.businessobjects.YouTubePlayer;
 import deemiensa.com.learnhub.gui.businessobjects.adapters.SearchHistoryCursorAdapter;
-import deemiensa.com.learnhub.gui.businessobjects.updates.UpdatesCheckerTask;
 import deemiensa.com.learnhub.gui.fragments.ChannelBrowserFragment;
-import deemiensa.com.learnhub.gui.fragments.MainFragment;
 import deemiensa.com.learnhub.gui.fragments.PlaylistVideosFragment;
 import deemiensa.com.learnhub.gui.fragments.SearchVideoGridFragment;
 
@@ -155,7 +146,7 @@ public class MainActivity extends BaseActivity implements
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 if(firebaseAuth.getCurrentUser()==null){
-                    Intent loginIntent = new Intent(MainActivity.this, Login1.class);
+                    Intent loginIntent = new Intent(MainActivity.this, LoginActivity.class);
                     //loginIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     //loginIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(loginIntent);

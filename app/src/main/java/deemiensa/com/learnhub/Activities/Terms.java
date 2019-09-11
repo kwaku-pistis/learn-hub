@@ -1,6 +1,6 @@
 package deemiensa.com.learnhub.Activities;
 
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 
 import deemiensa.com.learnhub.R;

@@ -1,13 +1,11 @@
 package deemiensa.com.learnhub.Activities;
 
-import android.app.Activity;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
 import android.content.ContentUris;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.Color;
@@ -21,16 +19,15 @@ import android.os.Environment;
 import android.os.Handler;
 import android.provider.DocumentsContract;
 import android.provider.MediaStore;
-import android.support.annotation.NonNull;
-import android.support.annotation.RequiresApi;
-import android.support.v7.app.AppCompatActivity;
+import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -40,7 +37,6 @@ import android.widget.MediaController;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.VideoView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
@@ -62,13 +58,11 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.warnyul.android.widget.FastVideoView;
-import com.yqritc.scalablevideoview.ScalableVideoView;
 
 import org.florescu.android.rangeseekbar.RangeSeekBar;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.IOException;
 import java.util.Date;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -76,8 +70,6 @@ import deemiensa.com.learnhub.R;
 import deemiensa.com.learnhub.Tasks.MyUploadService;
 import deemiensa.com.learnhub.Utils.SharedPref;
 
-import static deemiensa.com.learnhub.BaseFragments.Upload.selectedImageUri;
-import static deemiensa.com.learnhub.Utils.ImageFilePath.getPath;
 import static deemiensa.com.learnhub.Utils.SharedPref.getProfileName;
 import static deemiensa.com.learnhub.Utils.SharedPref.getProfilePic;
 import static deemiensa.com.learnhub.Utils.SharedPref.getProgramme;

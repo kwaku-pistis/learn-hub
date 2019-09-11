@@ -7,9 +7,9 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.support.annotation.NonNull;
-import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
+import androidx.annotation.NonNull;
+import com.google.android.material.snackbar.Snackbar;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -22,11 +22,6 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.bumptech.glide.request.RequestOptions;
-import com.google.android.gms.common.SignInButton;
-import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -42,10 +37,7 @@ import deemiensa.com.learnhub.App.MainActivity;
 import deemiensa.com.learnhub.R;
 import deemiensa.com.learnhub.Utils.Util;
 
-import static deemiensa.com.learnhub.Activities.Login1.prof_image;
-import static deemiensa.com.learnhub.Activities.Login1.stud_name;
 import static deemiensa.com.learnhub.Utils.SharedPref.saveLecturerProfile;
-import static deemiensa.com.learnhub.Utils.SharedPref.saveProfile;
 
 public class LecturerSignIn extends AppCompatActivity {
 

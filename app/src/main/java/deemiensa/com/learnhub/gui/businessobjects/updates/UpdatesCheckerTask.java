@@ -19,7 +19,7 @@ package deemiensa.com.learnhub.gui.businessobjects.updates;
 
 import android.content.Context;
 import android.content.DialogInterface;
-import android.support.v7.app.AlertDialog;
+import androidx.appcompat.app.AlertDialog;
 
 import deemiensa.com.learnhub.R;
 import deemiensa.com.learnhub.businessobjects.AsyncTaskParallel;

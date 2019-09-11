@@ -18,14 +18,13 @@
 package deemiensa.com.learnhub.businessobjects.YouTube.POJOs;
 
 import android.app.DownloadManager;
-import android.app.Fragment;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Environment;
-import android.support.v4.content.FileProvider;
+import androidx.core.content.FileProvider;
 import android.view.Menu;
 import android.widget.Toast;
 

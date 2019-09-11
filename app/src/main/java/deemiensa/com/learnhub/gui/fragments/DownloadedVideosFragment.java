@@ -1,7 +1,7 @@
 package deemiensa.com.learnhub.gui.fragments;
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 import android.view.View;
 
 import butterknife.BindView;

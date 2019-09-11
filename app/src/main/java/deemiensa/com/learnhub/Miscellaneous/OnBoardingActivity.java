@@ -2,9 +2,9 @@ package deemiensa.com.learnhub.Miscellaneous;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.content.ContextCompat;
-import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
+import androidx.viewpager.widget.ViewPager;
+import androidx.appcompat.app.AppCompatActivity;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -87,13 +87,10 @@ public class OnBoardingActivity extends AppCompatActivity {
             }
         });
 
-        btn_get_started.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        btn_get_started.setOnClickListener(v -> {
 
-                startActivity(new Intent(OnBoardingActivity.this, MainActivity.class));
-                finish();
-            }
+            startActivity(new Intent(OnBoardingActivity.this, MainActivity.class));
+            finish();
         });
 
         setUiPageViewController();

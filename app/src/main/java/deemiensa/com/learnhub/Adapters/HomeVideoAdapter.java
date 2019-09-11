@@ -1,21 +1,16 @@
 package deemiensa.com.learnhub.Adapters;
 
 import android.content.Context;
-import android.content.Intent;
-import android.support.annotation.NonNull;
-import android.support.v7.widget.RecyclerView;
+
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.PopupMenu;
 import android.widget.TextView;
 
-import com.afollestad.materialdialogs.DialogAction;
-import com.afollestad.materialdialogs.MaterialDialog;
 import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
 import com.yarolegovich.lovelydialog.LovelyProgressDialog;
@@ -23,14 +18,8 @@ import com.yarolegovich.lovelydialog.LovelyProgressDialog;
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
-import deemiensa.com.learnhub.App.SkyTubeApp;
 import deemiensa.com.learnhub.Classes.HomeVideo;
 import deemiensa.com.learnhub.R;
-import deemiensa.com.learnhub.businessobjects.db.PlaybackStatusDb;
-import deemiensa.com.learnhub.businessobjects.db.Tasks.IsVideoBookmarkedTask;
-import deemiensa.com.learnhub.businessobjects.db.Tasks.IsVideoWatchedTask;
-import deemiensa.com.learnhub.gui.activities.ThumbnailViewerActivity;
-import deemiensa.com.learnhub.gui.businessobjects.MobileNetworkWarningDialog;
 
 public class HomeVideoAdapter extends RecyclerView.Adapter<HomeVideoAdapter.ViewHolder> {
 
@@ -130,11 +119,11 @@ public class HomeVideoAdapter extends RecyclerView.Adapter<HomeVideoAdapter.View
     }
 
     private void onOptionsButtonClick(final View view) {
-        final android.support.v7.widget.PopupMenu popupMenu = new android.support.v7.widget.PopupMenu(view.getContext(), view);
+        final androidx.appcompat.widget.PopupMenu popupMenu = new androidx.appcompat.widget.PopupMenu(view.getContext(), view);
         popupMenu.getMenuInflater().inflate(R.menu.video_options_menu, popupMenu.getMenu());
         //Menu menu = popupMenu.getMenu();
 
-        popupMenu.setOnMenuItemClickListener(new android.support.v7.widget.PopupMenu.OnMenuItemClickListener() {
+        popupMenu.setOnMenuItemClickListener(new androidx.appcompat.widget.PopupMenu.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
                 if (item.getItemId() == R.id.delete) {
