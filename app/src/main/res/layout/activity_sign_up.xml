@@ -9,14 +9,14 @@
     android:padding="16dp"
     tools:context="deemiensa.com.learnhub.Activities.SignUp">
 
-    <ProgressBar
+    <!--<ProgressBar
         android:id="@+id/login_progress"
         style="?android:attr/progressBarStyleLarge"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:layout_centerInParent="true"
-        android:visibility="gone" />
+        android:visibility="gone" />-->
 
     <ScrollView
         android:id="@+id/login_form"
@@ -144,7 +144,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="10dp"
-                    android:theme="@style/TextTheme">
+                    android:theme="@style/TextTheme"
+                    app:passwordToggleEnabled="true">
 
                     <EditText
                         android:id="@+id/password"
@@ -167,7 +168,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="10dp"
-                    android:theme="@style/TextTheme">
+                    android:theme="@style/TextTheme"
+                    app:passwordToggleEnabled="true">
 
                     <EditText
                         android:id="@+id/confirm_password"
@@ -215,7 +217,8 @@
                     android:layout_height="wrap_content"
                     android:theme="@style/TextTheme"
                     android:text="Select, if you are a lecturer"
-                    android:textColor="@color/colorAccent"
+                    android:textColor="@android:color/white"
+                    android:textSize="20sp"
                     android:layout_gravity="left"
                     android:textStyle="italic"
                     />

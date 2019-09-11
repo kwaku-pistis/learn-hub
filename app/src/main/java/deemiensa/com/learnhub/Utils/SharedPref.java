@@ -62,6 +62,13 @@ public class SharedPref {
         editor.apply();
     }
 
+    public static void saveEmail(String email){
+        SharedPreferences sharedPreferences = mCtx.getSharedPreferences(MY_PREFS, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString("email", email);
+        editor.apply();
+    }
+
     public static void saveDept(String selected_dept){
         SharedPreferences sharedPreferences = mCtx.getSharedPreferences(MY_PREFS, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();

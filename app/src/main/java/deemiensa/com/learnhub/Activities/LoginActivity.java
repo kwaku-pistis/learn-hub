@@ -13,6 +13,8 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
+
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.google.android.material.snackbar.Snackbar;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -70,6 +72,7 @@ import java.util.List;
 import de.hdodenhof.circleimageview.CircleImageView;
 import deemiensa.com.learnhub.App.MainActivity;
 import deemiensa.com.learnhub.R;
+import deemiensa.com.learnhub.Utils.SharedPref;
 import deemiensa.com.learnhub.Utils.Util;
 
 import static android.Manifest.permission.READ_CONTACTS;
@@ -123,43 +126,30 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         // Set up the login form.
-        mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
+        mEmailView = findViewById(R.id.email);
         populateAutoComplete();
 
-        profileImage = findViewById(R.id.profileImage);
+        //profileImage = findViewById(R.id.profileImage);
         alertDialog1 = new Dialog(LoginActivity.this);
-        mPasswordView = (EditText) findViewById(R.id.password);
-        mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
-                if (id == EditorInfo.IME_ACTION_DONE || id == EditorInfo.IME_NULL) {
-                    attemptLogin();
-                    return true;
-                }
-                return false;
+        mPasswordView = findViewById(R.id.password);
+        mPasswordView.setOnEditorActionListener((textView, id, keyEvent) -> {
+            if (id == EditorInfo.IME_ACTION_DONE || id == EditorInfo.IME_NULL) {
+                attemptLogin();
+                return true;
             }
+            return false;
         });
 
         Button mEmailSignInButton = findViewById(R.id.email_sign_in_button);
-        mEmailSignInButton.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                attemptLogin();
-            }
-        });
+        mEmailSignInButton.setOnClickListener(view -> attemptLogin());
 
-        mName = findViewById(R.id.name_view);
+        //mName = findViewById(R.id.name_view);
         mLoginFormView = findViewById(R.id.login_form);
         mProgressView = findViewById(R.id.login_progress);
-        //signUp = findViewById(R.id.sign_up_button);
-       /* signUp.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(LoginActivity.this, SignUp.class));
-            }
-        });*/
+        signUp = findViewById(R.id.sign_up_button);
+        signUp.setOnClickListener(v -> startActivity(new Intent(LoginActivity.this, SignUp.class)));
 
-        //googleBtn = findViewById(R.id.googleBtn);
+        googleBtn = findViewById(R.id.googleBtn);
         mAuth = FirebaseAuth.getInstance();
         databaseReference = FirebaseDatabase.getInstance().getReference().child("Students");
 
@@ -189,24 +179,16 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 .build();*/
 
         mGoogleApiClient = new GoogleApiClient.Builder(this)
-                .enableAutoManage(this, new GoogleApiClient.OnConnectionFailedListener() {
-                    @Override
-                    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
-                        Toast.makeText(LoginActivity.this, "Something went wrong", Toast.LENGTH_SHORT).show();
-                    }
-                })
+                .enableAutoManage(this, connectionResult -> Toast.makeText(LoginActivity.this, "Something went wrong", Toast.LENGTH_SHORT).show())
                 .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
                 .build();
 
         //check this if doesn't work
-        mAuthListener = new FirebaseAuth.AuthStateListener() {
-            @Override
-            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                if(firebaseAuth.getCurrentUser() != null){
-                    Intent profile = new Intent(LoginActivity.this, MainActivity.class);
-                    //profile.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                    startActivity(profile);
-                }
+        mAuthListener = firebaseAuth -> {
+            if(firebaseAuth.getCurrentUser() != null && firebaseAuth.getCurrentUser().isEmailVerified()){
+                Intent profile = new Intent(LoginActivity.this, MainActivity.class);
+                //profile.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(profile);
             }
         };
     }
@@ -216,6 +198,11 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     protected void onStart() {
         super.onStart();
         mAuth.addAuthStateListener(mAuthListener);
+
+        String saved_email = SharedPref.getmInstance(this).getEmail();
+        if (saved_email != null){
+            mEmailView.setText(saved_email);
+        }
 
         /*String user_id = mAuth.getCurrentUser().getUid();
         databaseReference.child(user_id).addValueEventListener(new ValueEventListener() {
@@ -231,16 +218,16 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             }
         });*/
 
-        Glide.with(LoginActivity.this)
+        /*Glide.with(LoginActivity.this)
                 .setDefaultRequestOptions(new RequestOptions()
                         .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
                         .placeholder(R.drawable.ic_avatar)
                         .fitCenter()
-                ).load(prof_image).into(profileImage);
+                ).load(prof_image).into(profileImage);*/
 
-        mName.setText(stud_name);
+//        mName.setText(stud_name);
 
-        //setGoogleBtnText(googleBtn, "SIGN IN WITH GOOGLE");
+        setGoogleBtnText(googleBtn, "SIGN IN WITH GOOGLE");
         //googleBtn.setBackgroundResource(R.drawable.white_rounded_button);
 
         if (!isNetworkConnected()) {
@@ -380,8 +367,9 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         mPasswordView.setError(null);
 
         // Store values at the time of the login attempt.
-        String email = mEmailView.getText().toString()  + "@st.knust.edu.gh";
+        String email = mEmailView.getText().toString();
         String password = mPasswordView.getText().toString();
+        SharedPref.saveEmail(email);
 
         boolean cancel = false;
         View focusView = null;
@@ -435,7 +423,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                         }
                     } catch (InterruptedException ex) {
 
-                        Toast.makeText(LoginActivity.this, "Initializing failed", Toast.LENGTH_LONG).show();
+                        Toast.makeText(LoginActivity.this, "Validating failed", Toast.LENGTH_LONG).show();
                     }
 
                     // finish();
@@ -447,15 +435,12 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
             mTimerThread.start();
 
-            mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                @Override
-                public void onComplete(@NonNull Task<AuthResult> task) {
-                    if (task.isSuccessful()){
-                        checkUserExists();
-                    }else {
-                        alertDialog1.dismiss();
-                        Snackbar.make(findViewById(R.id.email_sign_in_button), "Error: Wrong Credentials!", Snackbar.LENGTH_LONG).show();
-                    }
+            mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(task -> {
+                if (task.isSuccessful()){
+                    checkUserExists();
+                }else {
+                    alertDialog1.dismiss();
+                    Snackbar.make(findViewById(R.id.email_sign_in_button), "Error: Wrong Credentials!", Snackbar.LENGTH_LONG).show();
                 }
             });
         }
@@ -466,7 +451,25 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
      */
     public void checkUserExists(){
         final String user_id = mAuth.getCurrentUser().getUid();
-        databaseReference.addValueEventListener(new ValueEventListener() {
+        FirebaseUser user = mAuth.getCurrentUser();
+        user.reload();
+        if (user.isEmailVerified()){
+            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
+        } else {
+            MaterialDialog dialog = new MaterialDialog.Builder(this)
+                    .title("Verify Email")
+                    .content("Please your email is not verified. Please verify your email before signing in.")
+                    .positiveText("OK")
+                    .onPositive((dialog1, which) -> dialog1.dismiss())
+                    .build();
+
+            dialog.show();
+        }
+
+
+        /*databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (dataSnapshot.hasChild(user_id)){
@@ -482,7 +485,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             public void onCancelled(@NonNull DatabaseError databaseError) {
                 //Toast.makeText(LoginActivity.this, databaseError.toString(), Toast.LENGTH_SHORT).show();
             }
-        });
+        });*/
     }
 
     private boolean isEmailValid(String email) {

@@ -254,40 +254,6 @@ public class MainActivity extends BaseActivity implements
         LocalBroadcastManager manager = LocalBroadcastManager.getInstance(this);
         manager.registerReceiver(mBroadcastReceiver, MyDownloadService.getIntentFilter());
         manager.registerReceiver(mBroadcastReceiver, MyUploadService.getIntentFilter());
-
-        if (SharedPref.getmInstance(this).isFirstLogIn().equals("0")){
-            /*AlertDialog.Builder builder;
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                builder = new AlertDialog.Builder(this, android.R.style.Theme_Material_Dialog_Alert);
-            } else {
-                builder = new AlertDialog.Builder(this);
-            }
-            builder.setTitle("Complete Profile")
-                    .setMessage("Continue to complete your profile setup?")
-                    .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int which) {
-                            // continue to profile fragment
-                            Fragment fragment = new Profile();
-                            FragmentManager fragmentManager = getSupportFragmentManager();
-                            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                            fragmentTransaction.replace(R.id.content_frame, fragment);
-                            fragmentTransaction.commit();
-
-                            // update shared Preference
-                            SharedPref.getmInstance(MainActivity.this).updateFirstLogIn();
-                        }
-                    })
-                    .setNegativeButton("LATER", new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int which) {
-                            // update shared Preference
-                            SharedPref.getmInstance(MainActivity.this).updateFirstLogIn();
-                        }
-                    })
-                    .setIcon(android.R.drawable.ic_dialog_info)
-                    .show();*/
-
-
-        }
     }
 
     private void initToolbar() {
@@ -438,7 +404,7 @@ public class MainActivity extends BaseActivity implements
                 }
             case R.id.menu_logout:
                 mAuth.signOut();
-                clearSession();
+                //clearSession();
                 return true;
         }
 

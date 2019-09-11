@@ -3,6 +3,7 @@ package deemiensa.com.learnhub.Activities;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
@@ -12,19 +13,24 @@ import androidx.annotation.NonNull;
 import com.google.android.material.snackbar.Snackbar;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.yarolegovich.lovelydialog.LovelyProgressDialog;
 
 import deemiensa.com.learnhub.R;
 import deemiensa.com.learnhub.Utils.Util;
@@ -38,11 +44,14 @@ public class SignUp extends AppCompatActivity {
     private View mProgressView;
     private View mLoginFormView;
     private CheckBox lectureCheckBox;
+    private ProgressDialog progressDialog;
 
     // firebase reference
     private FirebaseAuth mAuth;
     private FirebaseDatabase firebaseDatabase;
     private DatabaseReference databaseReference;
+
+    private String pwd, cpwd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,18 +69,64 @@ public class SignUp extends AppCompatActivity {
         signUpBtn = findViewById(R.id.sign_up_button);
 
         mLoginFormView = findViewById(R.id.login_form);
-        mProgressView = findViewById(R.id.login_progress);
+        //mProgressView = findViewById(R.id.login_progress);
+        progressDialog = new ProgressDialog(this);
 
         mAuth = FirebaseAuth.getInstance();
         firebaseDatabase = FirebaseDatabase.getInstance();
         databaseReference = FirebaseDatabase.getInstance().getReference().child("Users");
 
-        signUpBtn.setOnClickListener(new View.OnClickListener() {
+        mPassword.addTextChangedListener(new TextWatcher() {
             @Override
-            public void onClick(View v) {
-                registerUser(v);
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                pwd = mPassword.getText().toString();
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                pwd = mPassword.getText().toString();
             }
         });
+
+        confirmPassword.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                boolean cancel = false;
+                View focusView = null;
+
+                cpwd = confirmPassword.getText().toString();
+
+                if (!TextUtils.isEmpty(cpwd) && !pwd.equals(cpwd)){
+                    //Toast.makeText(this, "Please make sure your passwords match", Toast.LENGTH_SHORT).show();
+                    confirmPassword.setError(getString(R.string.error_confirm_password));
+                    focusView = confirmPassword;
+                    cancel = true;
+                }
+
+                if (cancel) {
+                    // There was an error; don't attempt login and focus the first
+                    // form field with an error.
+                    focusView.requestFocus();
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
+
+        signUpBtn.setOnClickListener(v -> registerUser(v));
     }
 
     /**
@@ -170,31 +225,46 @@ public class SignUp extends AppCompatActivity {
                 } else {
                     // Show a progress spinner, and kick off a background task to
                     // perform the user login attempt.
-                    showProgress(true);
+                    //showProgress(true);
+                    progressDialog.setMessage("Signing up... ");
+                    progressDialog.show();
+
+
                     /*mAuthTask = new UserLoginTask(email, password);
                     mAuthTask.execute((Void) null);*/
 
-                    mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                        @Override
-                        public void onComplete(@NonNull Task<AuthResult> task) {
-                            if (task.isSuccessful()){
-                                // Generating unique id for user
-                                String user_id = mAuth.getCurrentUser().getUid();
-                                // having a reference to the database
-                                DatabaseReference current_user_db = databaseReference.child(user_id);//.push();
-                                        //current_user_db.child(user_id);
-                                current_user_db.child("First Name").setValue(first_name);
-                                current_user_db.child("Last Name").setValue(last_name);
-                                current_user_db.child("Email").setValue(email);
-                                current_user_db.child("Username").setValue(username);
-                                current_user_db.child("Discipline").setValue(discipline);
-                                current_user_db.child("Lecturer").setValue(lecturer);
-                                mAuth.signOut();
-                                showProgress(false);
-                                Intent intent = new Intent(SignUp.this, LoginActivity.class);
-                                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                                startActivity(intent);
-                            }
+                    mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(task -> {
+                        if (task.isSuccessful()){
+                            // Generating unique id for user
+                            String user_id = mAuth.getCurrentUser().getUid();
+                            FirebaseUser user = mAuth.getCurrentUser();
+                            // having a reference to the database
+                            DatabaseReference current_user_db = databaseReference.child(user_id);//.push();
+                                    //current_user_db.child(user_id);
+                            current_user_db.child("First Name").setValue(first_name);
+                            current_user_db.child("Last Name").setValue(last_name);
+                            current_user_db.child("Email").setValue(email);
+                            current_user_db.child("Username").setValue(username);
+                            current_user_db.child("Discipline").setValue(discipline);
+                            current_user_db.child("Lecturer").setValue(lecturer);
+                            mAuth.signOut();
+                            //showProgress(false);
+                            progressDialog.dismiss();
+
+                            user.sendEmailVerification().addOnCompleteListener(task1 -> {
+                                if (task.isSuccessful()){
+                                    Toast.makeText(SignUp.this, "An email has been sent to " + email
+                                            + ". Please verify your email before signing in", Toast.LENGTH_LONG).show();
+
+                                    // show a snack bar telling the user to verify email address
+                                    Snackbar.make(mLoginFormView, "An email has been sent to " + email
+                                            + ". Please verify your email before signing in", Snackbar.LENGTH_LONG).show();
+
+                                    Intent intent = new Intent(SignUp.this, LoginActivity.class);
+                                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                    startActivity(intent);
+                                }
+                            });
                         }
                     });
                 }
@@ -218,14 +288,14 @@ public class SignUp extends AppCompatActivity {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR2) {
             int shortAnimTime = getResources().getInteger(android.R.integer.config_shortAnimTime);
 
-            mLoginFormView.setVisibility(show ? View.GONE : View.VISIBLE);
+            /*mLoginFormView.setVisibility(show ? View.GONE : View.VISIBLE);
             mLoginFormView.animate().setDuration(shortAnimTime).alpha(
                     show ? 0 : 1).setListener(new AnimatorListenerAdapter() {
                 @Override
                 public void onAnimationEnd(Animator animation) {
                     mLoginFormView.setVisibility(show ? View.GONE : View.VISIBLE);
                 }
-            });
+            });*/
 
             mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
             mProgressView.animate().setDuration(shortAnimTime).alpha(
@@ -239,7 +309,7 @@ public class SignUp extends AppCompatActivity {
             // The ViewPropertyAnimator APIs are not available, so simply show
             // and hide the relevant UI components.
             mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
-            mLoginFormView.setVisibility(show ? View.GONE : View.VISIBLE);
+            //mLoginFormView.setVisibility(show ? View.GONE : View.VISIBLE);
         }
     }
 }
