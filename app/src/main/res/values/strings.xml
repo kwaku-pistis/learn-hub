@@ -10,6 +10,28 @@
         <item>Profile</item>
     </array>
 
+    <string name="prompt">Choose your Institution</string>
+
+    <string-array name="uni_arrays">
+        <item>University of Ghana</item>
+        <item>Kwame Nkrumah University of Science and University</item>
+        <item>University of Cape Coast</item>
+        <item>University of Education, Winneba</item>
+        <item>University for Development Studies</item>
+        <item>University of Professional Studies</item>
+        <item>University of Mines and Technology</item>
+        <item>University of Health and Allied Sciences</item>
+        <item>University of Energy and Natural Resources</item>
+        <item>Accra Technical University</item>
+        <item>Cape Coast Technical University</item>
+        <item>Kumasi Technical University</item>
+        <item>Koforidua Technical University</item>
+        <item>Tamale Technical University</item>
+        <item>Ho Technical University</item>
+        <item>Takoradi Technical University</item>
+        <item>Sunyani Technical University</item>
+    </string-array>
+
 
     <!-- OnBoard Screen. -->
 

@@ -40,14 +40,16 @@ public class SharedPref {
         sharedPreferences.edit().clear().apply();
     }
 
-    public static void saveProfile(String name, String profile_pic, String programme, String email, String ref){
+    public static void saveProfile(String name, String username, String profile_pic, String programme, String email, String phone, String instititute){
         SharedPreferences sharedPreferences = mCtx.getSharedPreferences(MY_PREFS, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString("name", name);
+        editor.putString("username", username);
         editor.putString("profile pic", profile_pic);
         editor.putString("programme", programme);
         editor.putString("email", email);
-        editor.putString("ref", ref);
+        editor.putString("phone", phone);
+        editor.putString("institute", instititute);
         editor.apply();
     }
 
@@ -73,6 +75,27 @@ public class SharedPref {
         SharedPreferences sharedPreferences = mCtx.getSharedPreferences(MY_PREFS, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString("dept", selected_dept);
+        editor.apply();
+    }
+
+    public static void saveProfileImage(String selected_dept){
+        SharedPreferences sharedPreferences = mCtx.getSharedPreferences(MY_PREFS, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString("profile pic", selected_dept);
+        editor.apply();
+    }
+
+    public static void savePhone(String selected_dept){
+        SharedPreferences sharedPreferences = mCtx.getSharedPreferences(MY_PREFS, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString("phone", selected_dept);
+        editor.apply();
+    }
+
+    public static void saveUsername(String selected_dept){
+        SharedPreferences sharedPreferences = mCtx.getSharedPreferences(MY_PREFS, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString("username", selected_dept);
         editor.apply();
     }
 
@@ -106,14 +129,19 @@ public class SharedPref {
         return sharedPreferences.getString("email", null);
     }
 
-    public static String getRef(){
+    public static String getUsername(){
         SharedPreferences sharedPreferences = mCtx.getSharedPreferences(MY_PREFS, Context.MODE_PRIVATE);
-        return sharedPreferences.getString("ref", null);
+        return sharedPreferences.getString("username", null);
     }
 
-    public static String getSpeciality(){
+    public static String getInstitute(){
         SharedPreferences sharedPreferences = mCtx.getSharedPreferences(MY_PREFS, Context.MODE_PRIVATE);
-        return sharedPreferences.getString("specialty", null);
+        return sharedPreferences.getString("institute", null);
+    }
+
+    public static String getPhone(){
+        SharedPreferences sharedPreferences = mCtx.getSharedPreferences(MY_PREFS, Context.MODE_PRIVATE);
+        return sharedPreferences.getString("phone", null);
     }
 
     public static String getSavedDept(){

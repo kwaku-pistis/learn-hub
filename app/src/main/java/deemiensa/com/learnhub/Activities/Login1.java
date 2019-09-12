@@ -96,7 +96,7 @@ public class Login1 extends AppCompatActivity {
                                     String programme = String.valueOf(data.child("Programme").getValue());
                                     String email =  String.valueOf(data.child("Email").getValue());
                                     Log.d("HEY1", stud_name);
-                                    saveProfile(stud_name, prof_image , programme, email, ref);
+                                    //saveProfile(stud_name, prof_image , programme, email, ref);
 
                                     /*databaseReference.child(mAuth.getCurrentUser().getUid()).setValue("DeviceToken", deviceToken)
                                             .addOnCompleteListener(new OnCompleteListener<Void>()

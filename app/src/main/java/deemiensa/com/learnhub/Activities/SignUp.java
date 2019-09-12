@@ -12,6 +12,8 @@ import android.os.Build;
 import androidx.annotation.NonNull;
 import com.google.android.material.snackbar.Snackbar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatSpinner;
+
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
@@ -40,6 +42,7 @@ public class SignUp extends AppCompatActivity {
     // UI references.
     private AutoCompleteTextView mEmail;
     private EditText mPassword, confirmPassword, firstName, lastName, mUsername, mDiscipline;
+    private AppCompatSpinner mInstitution;
     private Button signUpBtn;
     private View mProgressView;
     private View mLoginFormView;
@@ -64,6 +67,7 @@ public class SignUp extends AppCompatActivity {
         confirmPassword = findViewById(R.id.confirm_password);
         firstName = findViewById(R.id.input_first_name);
         lastName = findViewById(R.id.input_last_name);
+        mInstitution = findViewById(R.id.institution);
         mDiscipline = findViewById(R.id.discipline);
         lectureCheckBox = findViewById(R.id.lecturer_checkbox);
         signUpBtn = findViewById(R.id.sign_up_button);
@@ -133,7 +137,7 @@ public class SignUp extends AppCompatActivity {
      * a function to register the user using email and password
      */
     private void registerUser(View view){
-        final String first_name, last_name, email, password, cPassword, username, discipline;
+        final String first_name, last_name, email, password, cPassword, username, discipline, institution;
         // Reset errors.
         mEmail.setError(null);
         mPassword.setError(null);
@@ -154,6 +158,8 @@ public class SignUp extends AppCompatActivity {
                 password = mPassword.getText().toString().trim();
                 cPassword = confirmPassword.getText().toString().trim();
                 discipline = mDiscipline.getText().toString().trim();
+                institution = String.valueOf(mInstitution.getSelectedItem());
+
                 final String lecturer;
                 if (lectureCheckBox.isChecked()){
                     lecturer = "yes";
@@ -216,7 +222,12 @@ public class SignUp extends AppCompatActivity {
                     focusView = mDiscipline;
                     cancel = true;
                 }
-
+                if (institution.equalsIgnoreCase(getString(R.string.prompt))){
+                    Toast.makeText(SignUp.this, "Please select an institution", Toast.LENGTH_SHORT).show();
+                    //mInstitution.setError(getString(R.string.error_field_required));
+                    focusView = mInstitution;
+                    cancel = true;
+                }
 
                 if (cancel) {
                     // There was an error; don't attempt login and focus the first
@@ -246,8 +257,9 @@ public class SignUp extends AppCompatActivity {
                             current_user_db.child("Email").setValue(email);
                             current_user_db.child("Username").setValue(username);
                             current_user_db.child("Discipline").setValue(discipline);
+                            current_user_db.child("Institution").setValue(institution);
                             current_user_db.child("Lecturer").setValue(lecturer);
-                            mAuth.signOut();
+                            //mAuth.signOut();
                             //showProgress(false);
                             progressDialog.dismiss();
 

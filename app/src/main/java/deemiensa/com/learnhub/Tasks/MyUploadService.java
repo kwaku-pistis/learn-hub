@@ -115,51 +115,40 @@ public class MyUploadService extends MyBaseTaskService {
         // Upload file to Firebase Storage
         Log.d(TAG, "uploadFromUri:dst:" + videoRef.getPath());
         videoRef.putFile(fileUri).
-                addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
-                    @Override
-                    public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
-                        showProgressNotification(getString(R.string.progress_uploading),
-                                taskSnapshot.getBytesTransferred(),
-                                taskSnapshot.getTotalByteCount());
+                addOnProgressListener(taskSnapshot -> showProgressNotification(getString(R.string.progress_uploading),
+                        taskSnapshot.getBytesTransferred(),
+                        taskSnapshot.getTotalByteCount()))
+                .continueWithTask(task -> {
+                    // Forward any exceptions
+                    if (!task.isSuccessful()) {
+                        throw task.getException();
                     }
-                })
-                .continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
-                    @Override
-                    public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
-                        // Forward any exceptions
-                        if (!task.isSuccessful()) {
-                            throw task.getException();
-                        }
 
-                        Log.d(TAG, "uploadFromUri: upload success");
+                    Log.d(TAG, "uploadFromUri: upload success");
 
-                        // Request the public download URL
-                        return videoRef.getDownloadUrl();
-                    }
-                }).addOnCompleteListener(new OnCompleteListener<Uri>() {
-            @Override
-            public void onComplete(@NonNull Task<Uri> task) {
-                        if (task.isSuccessful()){
-                            String downUri = task.getResult().toString();
-                            Log.d("VIDEO PREVIEW", "onComplete: Url: "+ downUri);
+                    // Request the public download URL
+                    return videoRef.getDownloadUrl();
+                }).addOnCompleteListener(task -> {
+                            if (task.isSuccessful()){
+                                String downUri = task.getResult().toString();
+                                Log.d("VIDEO PREVIEW", "onComplete: Url: "+ downUri);
 
-                            //String downloadUrl = filepath.getDownloadUrl().toString();
+                                //String downloadUrl = filepath.getDownloadUrl().toString();
 
-                            DatabaseReference current_user_db = databaseReference/*.child(user_id)*/.push();
-                            current_user_db.child("Title").setValue(title);
-                            current_user_db.child("Desc").setValue(desc);
-                            current_user_db.child("Category").setValue(category);
-                            current_user_db.child("VideoUrl").setValue(downUri);
-                            current_user_db.child("Name").setValue(getProfileName());
-                            current_user_db.child("ProfileImage").setValue(getProfilePic());
-                            current_user_db.child("Duration").setValue(duration);
-                            current_user_db.child("UserID").setValue(user_id);
-                            current_user_db.child("Thumbnail").setValue(getThumbnail());
-                            current_user_db.child("Time").setValue(Util.getTimestamp());
-                            current_user_db.child("PostTime").setValue(Util.getPostTimestamp());
-                        }
-                    }
-                })
+                                DatabaseReference current_user_db = databaseReference/*.child(user_id)*/.push();
+                                current_user_db.child("Title").setValue(title);
+                                current_user_db.child("Desc").setValue(desc);
+                                current_user_db.child("Category").setValue(category);
+                                current_user_db.child("VideoUrl").setValue(downUri);
+                                current_user_db.child("Name").setValue(getProfileName());
+                                current_user_db.child("ProfileImage").setValue(getProfilePic());
+                                current_user_db.child("Duration").setValue(duration);
+                                current_user_db.child("UserID").setValue(user_id);
+                                current_user_db.child("Thumbnail").setValue(getThumbnail());
+                                current_user_db.child("Time").setValue(Util.getTimestamp());
+                                current_user_db.child("PostTime").setValue(Util.getPostTimestamp());
+                            }
+                        })
                 .addOnSuccessListener(new OnSuccessListener<Uri>() {
                     @Override
                     public void onSuccess(@NonNull Uri downloadUri) {

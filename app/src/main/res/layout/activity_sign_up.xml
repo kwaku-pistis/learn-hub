@@ -9,15 +9,6 @@
     android:padding="16dp"
     tools:context="deemiensa.com.learnhub.Activities.SignUp">
 
-    <!--<ProgressBar
-        android:id="@+id/login_progress"
-        style="?android:attr/progressBarStyleLarge"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_centerInParent="true"
-        android:visibility="gone" />-->
-
     <ScrollView
         android:id="@+id/login_form"
         android:layout_width="match_parent"
@@ -210,6 +201,38 @@
                         android:singleLine="true" />
 
                 </com.google.android.material.textfield.TextInputLayout>
+
+              <!--  <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:theme="@style/TextTheme"
+                    android:layout_marginBottom="10dp">
+
+                    <EditText
+                        android:id="@+id/institution"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Tertiary Institution"
+                        android:imeActionId="6"
+                        android:imeActionLabel="@string/action_sign_in_short"
+                        android:imeOptions="actionUnspecified"
+                        android:inputType="textCapWords"
+                        android:textColorHint="@color/white"
+                        android:textColor="@color/white"
+                        android:theme="@style/TextTheme"
+                        android:maxLines="1"
+                        android:singleLine="true" />
+
+                </com.google.android.material.textfield.TextInputLayout>-->
+
+                <androidx.appcompat.widget.AppCompatSpinner
+                    android:id="@+id/institution"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:theme="@style/TextTheme"
+                    android:prompt="@string/prompt"
+                    android:entries="@array/uni_arrays"/>
 
                 <CheckBox
                     android:id="@+id/lecturer_checkbox"

@@ -65,6 +65,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.iid.FirebaseInstanceId;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -78,6 +79,7 @@ import deemiensa.com.learnhub.Utils.Util;
 import static android.Manifest.permission.READ_CONTACTS;
 import static deemiensa.com.learnhub.Activities.Login1.prof_image;
 import static deemiensa.com.learnhub.Activities.Login1.stud_name;
+import static deemiensa.com.learnhub.Utils.SharedPref.saveProfile;
 
 /**
  * A login screen that offers login via email/password.
@@ -151,7 +153,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
         googleBtn = findViewById(R.id.googleBtn);
         mAuth = FirebaseAuth.getInstance();
-        databaseReference = FirebaseDatabase.getInstance().getReference().child("Students");
+        databaseReference = FirebaseDatabase.getInstance().getReference().child("Users");
 
         googleBtn.setOnClickListener(v -> {
             if (!isNetworkConnected()) {
@@ -289,12 +291,21 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                         FirebaseUser user = mAuth.getCurrentUser();
                         String name = user.getDisplayName();
                         String email = user.getEmail();
+                        String phone = user.getPhoneNumber();
                         String profile_pic = user.getPhotoUrl().toString();
-                        SharedPref.saveProfile(name, profile_pic, "", email, "");
+
+                        SharedPref.saveProfile(name, name, profile_pic, "", email, phone, "");
+
+                        DatabaseReference current_user_db = databaseReference.child(user.getUid());
+                        current_user_db.child("Name").setValue(name);
+                        current_user_db.child("Email").setValue(email);
+                        current_user_db.child("Username").setValue(name.toLowerCase());
+                        current_user_db.child("Discipline").setValue("");
+                        current_user_db.child("Institution").setValue("");
+                        current_user_db.child("Phone Number").setValue(phone);
+                        current_user_db.child("Profile Image").setValue(profile_pic);
 
                         startActivity(new Intent(LoginActivity.this, MainActivity.class));
-                        //Log.d(TAG, user.toString());
-                        //updateUI(user);
                     } else {
                         // If sign in fails, display a message to the user.
                         Log.w(TAG, "signInWithCredential:failure", task.getException());
@@ -446,38 +457,52 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         FirebaseUser user = mAuth.getCurrentUser();
         user.reload();
         if (user.isEmailVerified()){
-            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+
+            databaseReference.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    if (dataSnapshot.hasChild(user_id)){
+                        Log.d(TAG, "USER ID: " + user_id);
+
+                        for(DataSnapshot data: dataSnapshot.getChildren()) {
+                            String name = data.child("First Name").getValue() + " " + data.child("Last Name").getValue();
+                            String username = String.valueOf(data.child("Username").getValue());
+                            String email = String.valueOf(data.child("Email").getValue());
+                            String discipline = String.valueOf(data.child("Discipline").getValue());
+                            String institution = String.valueOf(data.child("Institution").getValue());
+                            String profile_pic = String.valueOf(data.child("Profile Image").getValue());
+                            String phone = String.valueOf(data.child("Phone Number").getValue());
+                            //String deviceToken = FirebaseInstanceId.getInstance().getId();
+
+                            SharedPref.saveProfile(name, username, profile_pic, discipline, email, phone, institution);
+                        }
+
+                        alertDialog1.dismiss();
+                        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        startActivity(intent);
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+                    //Toast.makeText(LoginActivity.this, databaseError.toString(), Toast.LENGTH_SHORT).show();
+                }
+            });
+
+            /*Intent intent = new Intent(LoginActivity.this, MainActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            startActivity(intent);
+            startActivity(intent);*/
         } else {
             MaterialDialog dialog = new MaterialDialog.Builder(this)
                     .title("Verify Email")
-                    .content("Please your email is not verified. Please verify your email before signing in.")
+                    .content("Please your email is not verified. Verify your email before signing in.")
                     .positiveText("OK")
                     .onPositive((dialog1, which) -> dialog1.dismiss())
                     .build();
 
             dialog.show();
         }
-
-
-        /*databaseReference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if (dataSnapshot.hasChild(user_id)){
-                    Log.d(TAG, "USER ID: " + user_id);
-                    alertDialog1.dismiss();
-                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                    startActivity(intent);
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-                //Toast.makeText(LoginActivity.this, databaseError.toString(), Toast.LENGTH_SHORT).show();
-            }
-        });*/
     }
 
     private boolean isEmailValid(String email) {

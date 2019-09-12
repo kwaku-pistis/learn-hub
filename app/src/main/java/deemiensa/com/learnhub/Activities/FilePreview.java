@@ -32,7 +32,6 @@ import static deemiensa.com.learnhub.Utils.SharedPref.getProfileName;
 import static deemiensa.com.learnhub.Utils.SharedPref.getProfilePic;
 import static deemiensa.com.learnhub.Utils.SharedPref.getProgramme;
 import static deemiensa.com.learnhub.Utils.SharedPref.getSavedDept;
-import static deemiensa.com.learnhub.Utils.SharedPref.getSpeciality;
 import static deemiensa.com.learnhub.Utils.SharedPref.isLecturer;
 
 public class FilePreview extends AppCompatActivity {
@@ -106,9 +105,6 @@ public class FilePreview extends AppCompatActivity {
         if (!isLecturer()){
             mName.setText(getProfileName());
             mProg.setText(getProgramme());
-        } else {
-            mName.setText(getProfileName());
-            mProg.setText(getSpeciality());
         }
 
         Glide.with(this).setDefaultRequestOptions(new RequestOptions()

@@ -5,9 +5,7 @@
     android:theme="@style/TextTheme"
     android:background="@color/logo_black">
 
-
-
-    <ScrollView
+   <!-- <ScrollView
 
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -70,7 +68,8 @@
                         android:layout_width="296dp"
                         android:layout_below="@id/name"
                         android:layout_height="wrap_content"
-                        android:text="User name goes here"
+                        android:hint="Name of user"
+                        android:textColorHint="@android:color/darker_gray"
                         android:paddingLeft="5dp"
                         android:paddingRight="5dp"
                         android:textColor="@color/white"
@@ -102,7 +101,8 @@
                         android:layout_width="296dp"
                         android:layout_below="@id/username"
                         android:layout_height="wrap_content"
-                        android:text="Username goes here"
+                        android:hint="username"
+                        android:textColorHint="@android:color/darker_gray"
                         android:paddingLeft="5dp"
                         android:paddingRight="5dp"
                         android:textColor="@color/white"
@@ -132,7 +132,8 @@
                         android:layout_width="296dp"
                         android:layout_below="@id/prog"
                         android:layout_height="wrap_content"
-                        android:text="BSc. Computer Science"
+                        android:hint="BSc. Computer Science"
+                        android:textColorHint="@android:color/darker_gray"
                         android:paddingLeft="5dp"
                         android:paddingRight="5dp"
                         android:textColor="@color/white"
@@ -150,7 +151,7 @@
                         android:textStyle="bold|italic"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Student ID"
+                        android:text="Phone number"
                         android:id="@+id/ref"
                         android:textAppearance="?android:attr/textAppearanceSmall"
                         android:paddingLeft="5dp"
@@ -162,7 +163,8 @@
                         android:layout_width="296dp"
                         android:layout_below="@id/ref"
                         android:layout_height="wrap_content"
-                        android:text="12345678"
+                        android:hint="12345678"
+                        android:textColorHint="@android:color/darker_gray"
                         android:paddingLeft="5dp"
                         android:paddingRight="5dp"
                         android:textColor="@color/white"
@@ -194,7 +196,9 @@
                         android:layout_width="296dp"
                         android:layout_below="@+id/e_mail"
                         android:layout_height="wrap_content"
-                        android:text="dtpartey@st.knust.edu.gh"
+                        android:text=""
+                        android:hint="dtpartey@st.knust.edu.gh"
+                        android:textColorHint="@android:color/darker_gray"
                         android:paddingLeft="5dp"
                         android:paddingRight="5dp"
                         android:textColor="@color/white"
@@ -202,7 +206,7 @@
 
                 </RelativeLayout>
 
-                <!--<RelativeLayout
+                &lt;!&ndash;<RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:focusableInTouchMode="true"
@@ -397,11 +401,310 @@
                         android:hint="VISA number"
                         android:layout_below="@+id/visa"
                         android:id="@+id/input_visa"/>
-                </RelativeLayout>-->
+                </RelativeLayout>&ndash;&gt;
             </LinearLayout>
 
         </RelativeLayout>
 
 
+    </ScrollView>-->
+
+    <RelativeLayout
+        android:id="@+id/rellay1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/grad"
+        android:paddingBottom="20dp">
+
+        <!--<RelativeLayout
+            android:id="@+id/imgUser"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/circle_border">-->
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:id="@+id/profile_photo"
+            android:scaleType="centerCrop"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="9dp"
+            android:src="@drawable/ic_avatar"
+            android:layout_centerHorizontal="true"/>
+
+        <!--</RelativeLayout>-->
+
+        <TextView
+            android:id="@+id/input_first_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/profile_photo"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="15sp"
+            android:fontFamily="sans-serif-light"
+            android:text="Kwaku Pistis"
+            android:textColor="@color/white"
+            android:textSize="32sp" />
+
+
+        <TextView
+            android:id="@+id/input_user_email"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/input_first_name"
+            android:layout_centerHorizontal="true"
+            android:fontFamily="sans-serif"
+            android:text="joey@sharenofood.com"
+            android:textColor="@color/colorAccent"
+            android:textSize="18sp" />
+
+        <ImageView
+            android:id="@+id/edit_btn"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="15dp"
+            android:layout_marginTop="15dp"
+            android:adjustViewBounds="true"
+            android:scaleType="centerInside"
+            app:srcCompat="@drawable/ic_edit"/>
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/linlay1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/rellay1"
+        android:orientation="horizontal">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:background="@color/followersBg"
+            android:gravity="center"
+            android:paddingBottom="5dp"
+            android:paddingTop="5dp">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif-light"
+                    android:text="453K"
+                    android:textColor="@color/white"
+                    android:textSize="25sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif-light"
+                    android:text="videos"
+                    android:textAllCaps="true"
+                    android:textColor="@color/white"
+                    android:textSize="13sp" />
+
+            </LinearLayout>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:background="@color/followingBg"
+            android:gravity="center"
+            android:paddingBottom="5dp"
+            android:paddingTop="5dp">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif-light"
+                    android:text="873"
+                    android:textColor="@color/white"
+                    android:textSize="25sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif-light"
+                    android:text="liked videos"
+                    android:textAllCaps="true"
+                    android:textColor="@color/white"
+                    android:textSize="13sp" />
+
+            </LinearLayout>
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/linlay1"
+        android:layout_marginTop="20dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
+                android:layout_marginTop="20dp"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Username"
+                        android:textColor="@color/colorAccent"
+                        android:textSize="13sp" />
+
+                    <EditText
+                        android:id="@+id/username"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="sans-serif-light"
+                        android:hint="username"
+                        android:textColorHint="@color/grey"
+                        android:textColor="@color/white"
+                        android:textSize="18sp" />
+
+                    <!--<View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginTop="15dp"
+                        android:background="@color/grey" />-->
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Phone"
+                        android:textColor="@color/colorAccent"
+                        android:textSize="13sp" />
+
+                    <EditText
+                        android:id="@+id/input_ref"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="sans-serif-light"
+                        android:hint="+233-55-555-0157"
+                        android:inputType="phone"
+                        android:textColorHint="@color/grey"
+                        android:textColor="@color/white"
+                        android:textSize="18sp" />
+
+                    <!--<View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginTop="15dp"
+                        android:background="@color/grey" />-->
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Institution"
+                        android:textColor="@color/colorAccent"
+                        android:textSize="13sp" />
+
+                    <EditText
+                        android:id="@+id/institution"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="sans-serif-light"
+                        android:hint="KNUST"
+                        android:textColorHint="@color/grey"
+                        android:textColor="@color/white"
+                        android:textSize="18sp" />
+
+                    <!-- <View
+                         android:layout_width="match_parent"
+                         android:layout_height="1dp"
+                         android:layout_marginTop="15dp"
+                         android:background="@color/grey" />-->
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Discipline"
+                        android:textColor="@color/colorAccent"
+                        android:textSize="13sp" />
+
+                    <EditText
+                        android:id="@+id/input_prog"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="sans-serif-light"
+                        android:hint="Computer Science"
+                        android:textColorHint="@color/grey"
+                        android:textColor="@color/white"
+                        android:textSize="18sp" />
+
+                    <!--<View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginTop="15dp"
+                        android:background="@color/grey" />-->
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+        </RelativeLayout>
+
     </ScrollView>
+
 </RelativeLayout>
