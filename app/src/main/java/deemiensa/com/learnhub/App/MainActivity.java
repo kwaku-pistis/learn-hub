@@ -435,24 +435,6 @@ public class MainActivity extends BaseActivity implements
                 }
             }
         }
-
-        if (mainFragment != null  &&  mainFragment.isVisible()) {
-            // If the Subscriptions Drawer is open, close it instead of minimizing the app.
-            /*if(mainFragment.isDrawerOpen()) {
-                mainFragment.closeDrawer();
-            } else {*/
-                // On Android, when the user presses back button, the Activity is destroyed and will be
-                // recreated when the user relaunches the app.
-                // We do not want that behaviour, instead then the back button is pressed, the app will
-                // be **minimized**.
-                Intent startMain = new Intent(Intent.ACTION_MAIN);
-                startMain.addCategory(Intent.CATEGORY_HOME);
-                startMain.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                startActivity(startMain);
-            //}
-        } else {
-            super.onBackPressed();
-        }
     }
 
 

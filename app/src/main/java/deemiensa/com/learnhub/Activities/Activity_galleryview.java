@@ -188,16 +188,17 @@ public class Activity_galleryview extends AppCompatActivity {
         super.onStart();
 
         // initialize views with data from database
-        if (!isLecturer()){
-            mName.setText(getProfileName());
-            mProg.setText(getProgramme());
-        } else
+        //if (!isLecturer()){
+            mName.setText(SharedPref.getmInstance(this).getProfileName());
+            mProg.setText(SharedPref.getmInstance(this).getProgramme());
+        //}
 
-        Glide.with(this).setDefaultRequestOptions(new RequestOptions()
+        Glide.with(this)
+                .setDefaultRequestOptions(new RequestOptions()
                 .placeholder(R.drawable.ic_avatar)
                 .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
                 .fitCenter()
-        ).load(getProfilePic()).into(mProfilePic);
+        ).load(SharedPref.getmInstance(this).getProfilePic()).into(mProfilePic);
     }
 
     private void init(){

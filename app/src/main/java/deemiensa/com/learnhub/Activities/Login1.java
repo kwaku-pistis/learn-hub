@@ -48,14 +48,11 @@ public class Login1 extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         databaseReference = FirebaseDatabase.getInstance().getReference().child("Students");
 
-        mAuthListener = new FirebaseAuth.AuthStateListener() {
-            @Override
-            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                if(firebaseAuth.getCurrentUser() != null){
-                    Intent profile = new Intent(Login1.this, LoginActivity.class);
-                    //profile.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                    startActivity(profile);
-                }
+        mAuthListener = firebaseAuth -> {
+            if(firebaseAuth.getCurrentUser() != null){
+                Intent profile = new Intent(Login1.this, LoginActivity.class);
+                //profile.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(profile);
             }
         };
 
@@ -63,71 +60,68 @@ public class Login1 extends AppCompatActivity {
         mNxtBtn = findViewById(R.id.next_btn);
         mLecturerSignIn = findViewById(R.id.lecturer_sign_in);
 
-        mNxtBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mRefNum.setError(null);
-                boolean cancel = false;
-                View focusView = null;
-                final String ref_num = mRefNum.getText().toString().trim();
+        mNxtBtn.setOnClickListener(v -> {
+            mRefNum.setError(null);
+            boolean cancel = false;
+            View focusView = null;
+            final String ref_num = mRefNum.getText().toString().trim();
 
-                if (TextUtils.isEmpty(ref_num)){
-                    mRefNum.setError(getString(R.string.error_field_required));
-                    focusView = mRefNum;
-                    cancel = true;
-                }
+            if (TextUtils.isEmpty(ref_num)){
+                mRefNum.setError(getString(R.string.error_field_required));
+                focusView = mRefNum;
+                cancel = true;
+            }
 
-                if (cancel) {
-                    // There was an error; don't attempt login and focus the first
-                    // form field with an error.
-                    focusView.requestFocus();
-                } else {
-                    databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+            if (cancel) {
+                // There was an error; don't attempt login and focus the first
+                // form field with an error.
+                focusView.requestFocus();
+            } else {
+                databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-                            for(DataSnapshot data: dataSnapshot.getChildren()) {
-                                String ref = String.valueOf(data.child("Ref").getValue());
-                                String deviceToken = FirebaseInstanceId.getInstance().getId();
-                                Log.d("user_ref", ref);
-                                if (ref.equals(ref_num)){
-                                    stud_name = String.valueOf(data.child("Name").getValue()).toUpperCase();
-                                    prof_image = String.valueOf(data.child("Profile Image url").getValue());
-                                    String programme = String.valueOf(data.child("Programme").getValue());
-                                    String email =  String.valueOf(data.child("Email").getValue());
-                                    Log.d("HEY1", stud_name);
-                                    //saveProfile(stud_name, prof_image , programme, email, ref);
+                        for(DataSnapshot data: dataSnapshot.getChildren()) {
+                            String ref = String.valueOf(data.child("Ref").getValue());
+                            String deviceToken = FirebaseInstanceId.getInstance().getId();
+                            Log.d("user_ref", ref);
+                            if (ref.equals(ref_num)){
+                                stud_name = String.valueOf(data.child("Name").getValue()).toUpperCase();
+                                prof_image = String.valueOf(data.child("Profile Image url").getValue());
+                                String programme = String.valueOf(data.child("Programme").getValue());
+                                String email =  String.valueOf(data.child("Email").getValue());
+                                Log.d("HEY1", stud_name);
+                                //saveProfile(stud_name, prof_image , programme, email, ref);
 
-                                    /*databaseReference.child(mAuth.getCurrentUser().getUid()).setValue("DeviceToken", deviceToken)
-                                            .addOnCompleteListener(new OnCompleteListener<Void>()
+                                /*databaseReference.child(mAuth.getCurrentUser().getUid()).setValue("DeviceToken", deviceToken)
+                                        .addOnCompleteListener(new OnCompleteListener<Void>()
+                                        {
+                                            @Override
+                                            public void onComplete(@NonNull Task<Void> task)
                                             {
-                                                @Override
-                                                public void onComplete(@NonNull Task<Void> task)
+                                                if(task.isSuccessful())
                                                 {
-                                                    if(task.isSuccessful())
-                                                    {
-                                                        databaseReference.child("online").setValue(true);
+                                                    databaseReference.child("online").setValue(true);
 
-                                                        startActivity(new Intent(Login1.this, LoginActivity.class));
-                                                    }
+                                                    startActivity(new Intent(Login1.this, LoginActivity.class));
                                                 }
-                                            });*/
-                                    startActivity(new Intent(Login1.this, LoginActivity.class));
-                                } else {
-                                    Snackbar.make(findViewById(R.id.next_btn), "User for this reference number does not exist", Snackbar.LENGTH_LONG).show();
-                                    //alertDialog1.dismiss();
-                                }
+                                            }
+                                        });*/
+                                startActivity(new Intent(Login1.this, LoginActivity.class));
+                            } else {
+                                Snackbar.make(findViewById(R.id.next_btn), "User for this reference number does not exist", Snackbar.LENGTH_LONG).show();
+                                //alertDialog1.dismiss();
                             }
                         }
+                    }
 
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError databaseError) {
-                            Log.d("DbERROR", String.valueOf(databaseError));
-                            //alertDialog1.dismiss();
-                            Snackbar.make(findViewById(R.id.next_btn), "Error: " + databaseError, Snackbar.LENGTH_LONG).show();
-                        }
-                    });
-                }
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+                        Log.d("DbERROR", String.valueOf(databaseError));
+                        //alertDialog1.dismiss();
+                        Snackbar.make(findViewById(R.id.next_btn), "Error: " + databaseError, Snackbar.LENGTH_LONG).show();
+                    }
+                });
             }
         });
 

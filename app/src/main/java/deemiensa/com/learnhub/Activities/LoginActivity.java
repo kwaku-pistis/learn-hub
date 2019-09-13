@@ -123,6 +123,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     GoogleApiClient mGoogleApiClient;
     FirebaseAuth.AuthStateListener mAuthListener;
 
+    private boolean notInDB = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -286,26 +288,68 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         mAuth.signInWithCredential(credential)
                 .addOnCompleteListener(this, task -> {
                     if (task.isSuccessful()) {
+
+                        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                                for(DataSnapshot data: dataSnapshot.getChildren()) {
+                                    String ref = String.valueOf(data.getKey());
+                                    Log.d("user_ref", ref);
+                                    Log.d(TAG, "onDataChange: " + mAuth.getCurrentUser().getUid());
+                                    if (ref.equals(mAuth.getCurrentUser().getUid())){
+                                        String name = String.valueOf(data.child("Name").getValue());
+                                        String username = String.valueOf(data.child("Username").getValue());
+                                        String email = String.valueOf(data.child("Email").getValue());
+                                        String discipline = String.valueOf(data.child("Discipline").getValue());
+                                        String institution = String.valueOf(data.child("Institution").getValue());
+                                        String profile_pic = String.valueOf(data.child("Profile Image").getValue());
+                                        String phone = String.valueOf(data.child("Phone Number").getValue());
+                                        saveProfile(name, username, profile_pic, discipline, email, phone, institution);
+
+                                        //startActivity(new Intent(Login1.this, LoginActivity.class));
+                                    } else {
+                                        notInDB = true;
+                                    }
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError databaseError) {
+                                Log.d("DbERROR", String.valueOf(databaseError));
+                                //alertDialog1.dismiss();
+                                Snackbar.make(findViewById(R.id.next_btn), "Error: " + databaseError, Snackbar.LENGTH_LONG).show();
+                            }
+                        });
+
+                        if (notInDB){
+                            FirebaseUser user = mAuth.getCurrentUser();
+                            String name = user.getDisplayName();
+                            String email = user.getEmail();
+                            String phone = user.getPhoneNumber();
+                            String profile_pic = user.getPhotoUrl().toString();
+
+                            SharedPref.saveProfile(name, name, profile_pic, "", email, phone, "");
+
+                            DatabaseReference current_user_db = databaseReference.child(user.getUid());
+                            current_user_db.child("Name").setValue(name);
+                            current_user_db.child("Email").setValue(email);
+                            current_user_db.child("Username").setValue(name.toLowerCase());
+                            current_user_db.child("Discipline").setValue("");
+                            current_user_db.child("Institution").setValue("");
+                            current_user_db.child("Phone Number").setValue(phone);
+                            current_user_db.child("Profile Image").setValue(profile_pic);
+
+                            startActivity(new Intent(LoginActivity.this, MainActivity.class)
+                                    .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
+                        } else {
+                            startActivity(new Intent(LoginActivity.this, MainActivity.class)
+                                    .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
+                        }
+
                         // Sign in success, update UI with the signed-in user's information
                         Log.d(TAG, "signInWithCredential:success");
-                        FirebaseUser user = mAuth.getCurrentUser();
-                        String name = user.getDisplayName();
-                        String email = user.getEmail();
-                        String phone = user.getPhoneNumber();
-                        String profile_pic = user.getPhotoUrl().toString();
 
-                        SharedPref.saveProfile(name, name, profile_pic, "", email, phone, "");
-
-                        DatabaseReference current_user_db = databaseReference.child(user.getUid());
-                        current_user_db.child("Name").setValue(name);
-                        current_user_db.child("Email").setValue(email);
-                        current_user_db.child("Username").setValue(name.toLowerCase());
-                        current_user_db.child("Discipline").setValue("");
-                        current_user_db.child("Institution").setValue("");
-                        current_user_db.child("Phone Number").setValue(phone);
-                        current_user_db.child("Profile Image").setValue(profile_pic);
-
-                        startActivity(new Intent(LoginActivity.this, MainActivity.class));
                     } else {
                         // If sign in fails, display a message to the user.
                         Log.w(TAG, "signInWithCredential:failure", task.getException());
@@ -464,18 +508,18 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                     if (dataSnapshot.hasChild(user_id)){
                         Log.d(TAG, "USER ID: " + user_id);
 
-                        for(DataSnapshot data: dataSnapshot.getChildren()) {
-                            String name = data.child("First Name").getValue() + " " + data.child("Last Name").getValue();
-                            String username = String.valueOf(data.child("Username").getValue());
-                            String email = String.valueOf(data.child("Email").getValue());
-                            String discipline = String.valueOf(data.child("Discipline").getValue());
-                            String institution = String.valueOf(data.child("Institution").getValue());
-                            String profile_pic = String.valueOf(data.child("Profile Image").getValue());
-                            String phone = String.valueOf(data.child("Phone Number").getValue());
+                        //for(DataSnapshot data: dataSnapshot.getChildren()) {
+                            String name = dataSnapshot.child(user_id).child("First Name").getValue() + " " + dataSnapshot.child(user_id).child("Last Name").getValue();
+                            String username = String.valueOf(dataSnapshot.child(user_id).child("Username").getValue());
+                            String email = String.valueOf(dataSnapshot.child(user_id).child("Email").getValue());
+                            String discipline = String.valueOf(dataSnapshot.child(user_id).child("Discipline").getValue());
+                            String institution = String.valueOf(dataSnapshot.child(user_id).child("Institution").getValue());
+                            String profile_pic = String.valueOf(dataSnapshot.child(user_id).child("Profile Image").getValue());
+                            String phone = String.valueOf(dataSnapshot.child(user_id).child("Phone Number").getValue());
                             //String deviceToken = FirebaseInstanceId.getInstance().getId();
 
                             SharedPref.saveProfile(name, username, profile_pic, discipline, email, phone, institution);
-                        }
+                        //}
 
                         alertDialog1.dismiss();
                         Intent intent = new Intent(LoginActivity.this, MainActivity.class);
