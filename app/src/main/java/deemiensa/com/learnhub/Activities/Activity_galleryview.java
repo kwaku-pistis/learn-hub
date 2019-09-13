@@ -78,7 +78,7 @@ import static deemiensa.com.learnhub.Utils.SharedPref.isLecturer;
 
 public class Activity_galleryview extends AppCompatActivity {
 
-    String str_video, title, description, category;
+    String str_video, title, description, category, institution;
     FastVideoView videoView = null;
     FFmpeg ffmpeg;
     Dialog alertDialog1 = null;
@@ -113,7 +113,7 @@ public class Activity_galleryview extends AppCompatActivity {
         mTitle = findViewById(R.id.title);
         mDesc = findViewById(R.id.description);
         mDept = findViewById(R.id.category);
-        mDisciplineBtn = findViewById(R.id.discipline_btn);
+        //mDisciplineBtn = findViewById(R.id.discipline_btn);
         mCount = findViewById(R.id.title_counter);
         mName = findViewById(R.id.name_text);
         mProg = findViewById(R.id.programme);
@@ -135,12 +135,12 @@ public class Activity_galleryview extends AppCompatActivity {
 
         loadFFMpegBinary();
 
-        mDisciplineBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(Activity_galleryview.this, Departments.class));
-            }
-        });
+//        mDisciplineBtn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                startActivity(new Intent(Activity_galleryview.this, Departments.class));
+//            }
+//        });
 
         mTitle.addTextChangedListener(new TextWatcher() {
             @Override
@@ -175,12 +175,7 @@ public class Activity_galleryview extends AppCompatActivity {
             }
         });
 
-        mTrim.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mTrimRel.setVisibility(View.VISIBLE);
-            }
-        });
+        mTrim.setOnClickListener(v -> mTrimRel.setVisibility(View.VISIBLE));
     }
 
     @Override
@@ -190,7 +185,7 @@ public class Activity_galleryview extends AppCompatActivity {
         // initialize views with data from database
         //if (!isLecturer()){
             mName.setText(SharedPref.getmInstance(this).getProfileName());
-            mProg.setText(SharedPref.getmInstance(this).getProgramme());
+            mProg.setText(SharedPref.getmInstance(this).getInstitute());
         //}
 
         Glide.with(this)
@@ -340,6 +335,7 @@ public class Activity_galleryview extends AppCompatActivity {
             title = mTitle.getText().toString().trim();
             description = mDesc.getText().toString().trim();
             category = mDept.getText().toString().trim();
+            institution = SharedPref.getmInstance(this).getInstitute();
             filePrefix = title;
 
             if (TextUtils.isEmpty(title)){
@@ -363,7 +359,7 @@ public class Activity_galleryview extends AppCompatActivity {
                             mSeekbar.getSelectedMaxValue().intValue() * 1000, filePrefix);
                 } else {
                     File main_vid = new File(str_video);
-                    uploadVideo(Uri.fromFile(main_vid), title, description, category, duration);
+                    uploadVideo(Uri.fromFile(main_vid), title, description, category, duration, institution);
                 }
             }
         }
@@ -513,7 +509,7 @@ public class Activity_galleryview extends AppCompatActivity {
                 public void onFinish() {
                     Log.e("Event ", "onFinish");
                     File file_to_upload = new File(file_path);
-                    uploadVideo(Uri.fromFile(file_to_upload), title, description, category, duration);
+                    uploadVideo(Uri.fromFile(file_to_upload), title, description, category, duration, institution);
                     //finish();
                     //alertDialog1.dismiss();
                 }
@@ -568,7 +564,7 @@ public class Activity_galleryview extends AppCompatActivity {
         }
     }
 
-    public void uploadVideo(Uri uri, final String title, final String desc, final String category, final int duration){
+    public void uploadVideo(Uri uri, final String title, final String desc, final String category, final int duration, final String institution){
         //showProgress();
 
         // Save the File URI
@@ -589,47 +585,35 @@ public class Activity_galleryview extends AppCompatActivity {
         // Upload thumbnail to firebase
         final StorageReference mStorage = storageReference.child(String.valueOf(new Date()));
         mStorage.putBytes(thumb)
-                .continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
-                    @Override
-                    public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
-                        // Forward any exceptions
-                        if (!task.isSuccessful()) {
-                            throw task.getException();
-                        }
-
-                        Log.d(TAG, "uploadFromUri: upload success");
-
-                        // Request the public download URL
-                        //SharedPref.saveThumbnail(String.valueOf(storageReference.getDownloadUrl()));
-                        return mStorage.getDownloadUrl();
+                .continueWithTask(task -> {
+                    // Forward any exceptions
+                    if (!task.isSuccessful()) {
+                        throw task.getException();
                     }
-                }).addOnCompleteListener(new OnCompleteListener<Uri>() {
-            @Override
-            public void onComplete(@NonNull Task<Uri> task) {
-                if (task.isSuccessful()){
-                    String downUri = task.getResult().toString();
-                    Log.d("THUMB_TAG", "onComplete: Url: "+ downUri);
 
-                    SharedPref.saveThumbnail(downUri);
-                    //thumbnailUri = downUri;
-                }
-            }
-        })
-                .addOnSuccessListener(new OnSuccessListener<Uri>() {
-                    @Override
-                    public void onSuccess(@NonNull Uri downloadUri) {
-                        // Upload succeeded
-                        Log.d(TAG, "uploadFromUri: getDownloadUri success");
-                        //SharedPref.saveThumbnail(downloadUri.toString());
+                    Log.d(TAG, "uploadFromUri: upload success");
+
+                    // Request the public download URL
+                    //SharedPref.saveThumbnail(String.valueOf(storageReference.getDownloadUrl()));
+                    return mStorage.getDownloadUrl();
+                }).addOnCompleteListener(task -> {
+                    if (task.isSuccessful()){
+                        String downUri = task.getResult().toString();
+                        Log.d("THUMB_TAG", "onComplete: Url: "+ downUri);
+
+                        SharedPref.saveThumbnail(downUri);
+                        //thumbnailUri = downUri;
                     }
                 })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception exception) {
-                        // Upload failed
-                        Log.w(TAG, "uploadFromUri:onFailure", exception);
+                .addOnSuccessListener(downloadUri -> {
+                    // Upload succeeded
+                    Log.d(TAG, "uploadFromUri: getDownloadUri success");
+                    //SharedPref.saveThumbnail(downloadUri.toString());
+                })
+                .addOnFailureListener(exception -> {
+                    // Upload failed
+                    Log.w(TAG, "uploadFromUri:onFailure", exception);
 
-                    }
                 });
 
         //thumbnailUri = thumbUri;
@@ -642,11 +626,12 @@ public class Activity_galleryview extends AppCompatActivity {
                 .putExtra("desc", desc)
                 .putExtra("category", category)
                 .putExtra("duration", duration)
+                .putExtra("institution", institution)
                 .setAction(MyUploadService.ACTION_UPLOAD));
 
         // Show loading spinner
         showProgressDialog(getString(R.string.progress_uploading));
-
+        //hideProgressDialog();
         finish();
 
         /*final String user_id = mAuth.getCurrentUser().getUid();

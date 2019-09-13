@@ -232,6 +232,8 @@ public class Profile extends AppCompatActivity {
 
         SharedPref.savePhone(phone);
         SharedPref.saveUsername(username);
+        SharedPref.saveDept(discipline);
+        SharedPref.saveInstitute(institute);
 
         FirebaseUser user = mAuth.getCurrentUser();
         DatabaseReference current_user_db = userDB.child(user.getUid());

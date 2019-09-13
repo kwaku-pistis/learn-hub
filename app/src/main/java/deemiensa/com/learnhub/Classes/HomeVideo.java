@@ -1,7 +1,7 @@
 package deemiensa.com.learnhub.Classes;
 
 public class HomeVideo {
-    private String Title, Desc, Category, VideoUrl, ProfileImage, Name, UserID, Thumbnail, Time, PostTime;
+    private String Title, Desc, Category, VideoUrl, ProfileImage, Name, UserID, Thumbnail, Time, PostTime, Institution;
     private int Duration;
 
     public HomeVideo(){
@@ -9,7 +9,7 @@ public class HomeVideo {
     }
 
     public HomeVideo(String title, String desc, String category, String videoUrl, String profileImage, String name, String userID,
-                     int duration, String thumbnail, String time, String postTime){
+                     int duration, String thumbnail, String time, String postTime, String institution){
         this.Title = title;
         this.Desc = desc;
         this.Category = category;
@@ -21,6 +21,7 @@ public class HomeVideo {
         this.Thumbnail = thumbnail;
         this.Time = time;
         this.PostTime = postTime;
+        this.Institution = institution;
     }
 
     public String getTitle() {
@@ -109,5 +110,13 @@ public class HomeVideo {
 
     public void setPostTime(String postTime) {
         PostTime = postTime;
+    }
+
+    public String getInstitution() {
+        return Institution;
+    }
+
+    public void setInstitution(String institution) {
+        Institution = institution;
     }
 }

@@ -74,7 +74,14 @@ public class SharedPref {
     public static void saveDept(String selected_dept){
         SharedPreferences sharedPreferences = mCtx.getSharedPreferences(MY_PREFS, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString("dept", selected_dept);
+        editor.putString("programme", selected_dept);
+        editor.apply();
+    }
+
+    public static void saveInstitute(String selected_dept){
+        SharedPreferences sharedPreferences = mCtx.getSharedPreferences(MY_PREFS, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString("institute", selected_dept);
         editor.apply();
     }
 

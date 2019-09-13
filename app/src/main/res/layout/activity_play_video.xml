@@ -34,8 +34,7 @@
                         android:id="@+id/video"
                         android:layout_width="match_parent"
                         android:layout_height="350dp"
-                        android:layout_alignParentTop="true"
-                        android:layout_centerHorizontal="true"
+                        android:layout_gravity="center"
                         android:alpha="0.0"
                         android:rotation="0"/>
 
@@ -97,13 +96,13 @@
 
                 <ImageView
                     android:id="@+id/full_view"
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
                     app:srcCompat="@drawable/ic_fullscreen"
                     android:layout_alignParentBottom="true"
                     android:layout_alignParentEnd="true"
                     android:layout_alignParentRight="true"
-                    android:layout_marginBottom="8dp"
+                    android:layout_marginBottom="15dp"
                     android:layout_marginRight="8dp"
                     android:layout_marginEnd="8dp" />
 
@@ -116,18 +115,20 @@
                 android:layout_height="wrap_content">
 
                 <TextView
-                    android:id="@+id/trimBtn"
+                    android:id="@+id/title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
                     android:text="Title"
+                    android:textAllCaps="true"
                     android:textColor="@color/white"
-                    android:textSize="16sp"
+                    android:textSize="20sp"
                     android:layout_marginTop="5dp"
-                    android:layout_marginBottom="5dp"
+                    android:layout_marginBottom="15dp"
                     android:layout_marginLeft="10dp"
                     android:layout_marginStart="10dp" />
 
-                <ImageView
+                <!--<ImageView
                     android:id="@+id/title_drop_down"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -137,7 +138,14 @@
                     android:layout_alignParentRight="true"
                     android:layout_centerInParent="true"
                     android:layout_marginRight="10dp"
-                    android:layout_marginEnd="10dp" />
+                    android:layout_marginEnd="10dp" />-->
+
+                <View
+                    android:id="@+id/view0"
+                    android:layout_below="@+id/title"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="#555"/>
 
             </RelativeLayout>
 
@@ -179,7 +187,7 @@
                             android:textColor="@color/white"/>
 
                         <TextView
-                            android:id="@+id/programme"
+                            android:id="@+id/institution"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="BSc. Computer Science"
@@ -244,13 +252,50 @@
                     android:layout_height="1dp"
                     android:background="#555"/>
 
+
+                <TextView
+                    android:id="@+id/cat_text_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Category"
+                    android:textColor="@color/colorAccent"
+                    android:layout_below="@+id/view2"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginStart="10dp"
+                    android:textSize="16sp"
+                    android:layout_marginLeft="10dp" />
+
+                <TextView
+                    android:id="@+id/cat_textView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Category"
+                    android:textColor="@color/white"
+                    android:layout_below="@+id/cat_text_view"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginStart="10dp"
+                    android:paddingLeft="15dp"
+                    android:paddingRight="15dp"
+                    android:textSize="14sp"
+                    android:paddingStart="15dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"/>
+
+                <View
+                    android:id="@+id/view3"
+                    android:layout_below="@+id/cat_textView"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="#555"/>
+
                 <TextView
                     android:id="@+id/more_text_view"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="More Videos"
                     android:textColor="@color/colorAccent"
-                    android:layout_below="@+id/view2"
+                    android:layout_below="@+id/view3"
                     android:layout_margin="10dp"
                     android:textSize="16sp"/>
 

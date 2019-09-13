@@ -47,8 +47,8 @@ public class PlayVideo extends AppCompatActivity {
 
     FastVideoView videoView = null;
     ProgressBar mProgress;
-    private String str_video, title, desc, profile_pic, category, name;
-    private TextView mTitle, mDesc, mCategory, mName;
+    private String str_video, title, desc, profile_pic, category, name, institution;
+    private TextView mTitle, mDesc, mCategory, mName, mInstitute;
     private ImageView mPlay, mForward, mRewind, mFullView, mVideoCall;
     private CircleImageView mProfilePic;
     private DatabaseReference mDatabase;
@@ -73,18 +73,19 @@ public class PlayVideo extends AppCompatActivity {
         category = getIntent().getStringExtra("category");
         name = getIntent().getStringExtra("name");
         mChatUserId = getIntent().getStringExtra("user_id");
+        institution = getIntent().getStringExtra("institution");
 
-        if(mChatUserId == null)
-        {
+        if(mChatUserId == null) {
             mChatUserId = getIntent().getExtras().getString("sender_id");
         }
 
         //binding views
-        mTitle = findViewById(R.id.trimBtn);
+        mTitle = findViewById(R.id.title);
         mDesc = findViewById(R.id.desc_textView);
         mProgress= findViewById(R.id.progress_bar);
         mName = findViewById(R.id.name_text);
-        mCategory = findViewById(R.id.programme);
+        mInstitute = findViewById(R.id.institution);
+        mCategory = findViewById(R.id.cat_textView);
         mProfilePic = findViewById(R.id.profile_pic);
         mPlay = findViewById(R.id.play_btn);
         mForward = findViewById(R.id.forward_btn);
@@ -178,6 +179,7 @@ public class PlayVideo extends AppCompatActivity {
         mTitle.setText(title);
         mDesc.setText(desc);
         mName.setText(name);
+        mInstitute.setText(institution);
         mCategory.setText(category);
         Glide.with(this)
                 .setDefaultRequestOptions(new RequestOptions()
@@ -190,17 +192,14 @@ public class PlayVideo extends AppCompatActivity {
         videoView.setVideoPath(str_video);
         videoView.setAlpha(1.0f);       // Set transparency.
         videoView.setRotation(0.0f);   // Set rotation.
-        videoView.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
-            @Override
-            public void onPrepared(MediaPlayer mp) {
-                videoView.start();
-                mProgress.setVisibility(View.GONE);
-                mPlay.setImageResource(R.drawable.ic_pause);
-                mPlay.setVisibility(View.GONE);
-                mForward.setVisibility(View.GONE);
-                mRewind.setVisibility(View.GONE);
-                mFullView.setVisibility(View.GONE);
-            }
+        videoView.setOnPreparedListener(mp -> {
+            videoView.start();
+            mProgress.setVisibility(View.GONE);
+            mPlay.setImageResource(R.drawable.ic_pause);
+            mPlay.setVisibility(View.GONE);
+            mForward.setVisibility(View.GONE);
+            mRewind.setVisibility(View.GONE);
+            mFullView.setVisibility(View.GONE);
         });
 
         videoView.setOnTouchListener(new View.OnTouchListener() {
@@ -215,13 +214,11 @@ public class PlayVideo extends AppCompatActivity {
                 t.schedule(new TimerTask() {
                     @Override
                     public void run() {
-                        runOnUiThread(new Runnable() {
-                            public void run() {
-                                mPlay.setVisibility(View.GONE);
-                                mForward.setVisibility(View.GONE);
-                                mRewind.setVisibility(View.GONE);
-                                mFullView.setVisibility(View.GONE);
-                            }
+                        runOnUiThread(() -> {
+                            mPlay.setVisibility(View.GONE);
+                            mForward.setVisibility(View.GONE);
+                            mRewind.setVisibility(View.GONE);
+                            mFullView.setVisibility(View.GONE);
                         });
                     }
                 }, 2500);
@@ -230,41 +227,25 @@ public class PlayVideo extends AppCompatActivity {
             }
         });
 
-        videoView.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-            @Override
-            public void onCompletion(MediaPlayer mp) {
+        videoView.setOnCompletionListener(mp -> {
+            mPlay.setImageResource(R.drawable.ic_play);
+            mPlay.setVisibility(View.VISIBLE);
+            mRewind.setVisibility(View.VISIBLE);
+        });
+
+        mPlay.setOnClickListener(v -> {
+            if (videoView.isPlaying()){
+                videoView.pause();
                 mPlay.setImageResource(R.drawable.ic_play);
-                mPlay.setVisibility(View.VISIBLE);
-                mRewind.setVisibility(View.VISIBLE);
+            } else {
+                videoView.start();
+                mPlay.setImageResource(R.drawable.ic_pause);
             }
         });
 
-        mPlay.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (videoView.isPlaying()){
-                    videoView.pause();
-                    mPlay.setImageResource(R.drawable.ic_play);
-                } else {
-                    videoView.start();
-                    mPlay.setImageResource(R.drawable.ic_pause);
-                }
-            }
-        });
+        mForward.setOnClickListener(v -> videoView.seekTo(videoView.getCurrentPosition() + 3000));
 
-        mForward.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                videoView.seekTo(videoView.getCurrentPosition() + 3000);
-            }
-        });
-
-        mRewind.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                videoView.seekTo(videoView.getCurrentPosition() - 3000);
-            }
-        });
+        mRewind.setOnClickListener(v -> videoView.seekTo(videoView.getCurrentPosition() - 3000));
 
        /* mFullView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -275,71 +256,59 @@ public class PlayVideo extends AppCompatActivity {
             }
         });*/
 
-       mVideoCall.setOnClickListener(new View.OnClickListener() {
-           @Override
-           public void onClick(View v) {
-               final AlertDialog.Builder builder;
-               if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                   builder = new AlertDialog.Builder(PlayVideo.this, android.R.style.Theme_Material_Dialog_Alert);
-               } else {
-                   builder = new AlertDialog.Builder(PlayVideo.this);
-               }
-               builder.setTitle("Start Video Call")
-                       .setMessage("Do you really want to start a video call with " + name + "?")
-                       .setPositiveButton("YES", new DialogInterface.OnClickListener() {
-                           public void onClick(DialogInterface dialog, int which) {
-                               //startActivity(new Intent(PlayVideo.this, VideoChat.class));
-
-                               DatabaseReference userMessagePush = mRootDataBase.child("video_sessions").child(mCurrentUserId).child(mChatUserId).push();
-                               final String newVideoSessionPushId = userMessagePush.getKey();
-
-                               DatabaseReference newNotificationRef = mRootDataBase.child("notifications").child(mChatUserId).push();
-                               final String newNotificationPushId = newNotificationRef.getKey();
-
-                               HashMap<String, String> notificationData = new HashMap<>();
-                               notificationData.put("from", mCurrentUserId);
-                               notificationData.put("type", "video_call");
-
-                               String currentUserRef = "video_sessions/" + mCurrentUserId + "/" + mChatUserId;
-                               String chatUserRef = "video_sessions/" + mChatUserId + "/" + mCurrentUserId;
-
-                               Map videoCallRequestMap = new HashMap();
-                               videoCallRequestMap.put(currentUserRef + "/" + newVideoSessionPushId, "calling");
-                               videoCallRequestMap.put(chatUserRef + "/" + newVideoSessionPushId, "getting_call");
-                               videoCallRequestMap.put("notifications/" + mChatUserId + "/" + newNotificationPushId, notificationData);
-
-                               mRootDataBase.updateChildren(videoCallRequestMap, new DatabaseReference.CompletionListener()
-                               {
-                                   @Override
-                                   public void onComplete(@Nullable DatabaseError databaseError, @NonNull DatabaseReference databaseReference)
-                                   {
-                                       if(databaseError == null)
-                                       {
-                                           Intent videoSessionIntent = new Intent(PlayVideo.this, VideoChat.class);
-                                           videoSessionIntent.putExtra("session_id", newVideoSessionPushId);
-                                           videoSessionIntent.putExtra("current_user_id", mCurrentUserId);
-                                           videoSessionIntent.putExtra("friend_user_id", mChatUserId);
-                                           videoSessionIntent.putExtra("friend_name", name);
-                                           videoSessionIntent.putExtra("call_status", "calling");
-
-                                           startActivity(videoSessionIntent);
-                                       }
-                                       else
-                                       {
-                                           Log.d("CHAT_LOG", databaseError.getMessage());
-                                       }
-                                   }
-                               });
-                           }
-                       })
-                       .setNegativeButton("NO", new DialogInterface.OnClickListener() {
-                           public void onClick(DialogInterface dialog, int which) {
-                               //finish();
-                           }
-                       })
-                       .setIcon(android.R.drawable.ic_dialog_alert)
-                       .show();
+       mVideoCall.setOnClickListener(v -> {
+           final AlertDialog.Builder builder;
+           if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+               builder = new AlertDialog.Builder(PlayVideo.this, android.R.style.Theme_Material_Dialog_Alert);
+           } else {
+               builder = new AlertDialog.Builder(PlayVideo.this);
            }
+           builder.setTitle("Start Video Call")
+                   .setMessage("Do you really want to start a video call with " + name + "?")
+                   .setPositiveButton("YES", (dialog, which) -> {
+                       //startActivity(new Intent(PlayVideo.this, VideoChat.class));
+
+                       DatabaseReference userMessagePush = mRootDataBase.child("video_sessions").child(mCurrentUserId).child(mChatUserId).push();
+                       final String newVideoSessionPushId = userMessagePush.getKey();
+
+                       DatabaseReference newNotificationRef = mRootDataBase.child("notifications").child(mChatUserId).push();
+                       final String newNotificationPushId = newNotificationRef.getKey();
+
+                       HashMap<String, String> notificationData = new HashMap<>();
+                       notificationData.put("from", mCurrentUserId);
+                       notificationData.put("type", "video_call");
+
+                       String currentUserRef = "video_sessions/" + mCurrentUserId + "/" + mChatUserId;
+                       String chatUserRef = "video_sessions/" + mChatUserId + "/" + mCurrentUserId;
+
+                       Map videoCallRequestMap = new HashMap();
+                       videoCallRequestMap.put(currentUserRef + "/" + newVideoSessionPushId, "calling");
+                       videoCallRequestMap.put(chatUserRef + "/" + newVideoSessionPushId, "getting_call");
+                       videoCallRequestMap.put("notifications/" + mChatUserId + "/" + newNotificationPushId, notificationData);
+
+                       mRootDataBase.updateChildren(videoCallRequestMap, (databaseError, databaseReference) -> {
+                           if(databaseError == null)
+                           {
+                               Intent videoSessionIntent = new Intent(PlayVideo.this, VideoChat.class);
+                               videoSessionIntent.putExtra("session_id", newVideoSessionPushId);
+                               videoSessionIntent.putExtra("current_user_id", mCurrentUserId);
+                               videoSessionIntent.putExtra("friend_user_id", mChatUserId);
+                               videoSessionIntent.putExtra("friend_name", name);
+                               videoSessionIntent.putExtra("call_status", "calling");
+
+                               startActivity(videoSessionIntent);
+                           }
+                           else
+                           {
+                               Log.d("CHAT_LOG", databaseError.getMessage());
+                           }
+                       });
+                   })
+                   .setNegativeButton("NO", (dialog, which) -> {
+                       //finish();
+                   })
+                   .setIcon(android.R.drawable.ic_dialog_alert)
+                   .show();
        });
     }
 

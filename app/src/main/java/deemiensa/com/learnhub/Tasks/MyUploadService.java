@@ -88,16 +88,17 @@ public class MyUploadService extends MyBaseTaskService {
             String title = intent.getStringExtra("title");
             String desc = intent.getStringExtra("desc");
             String category = intent.getStringExtra("category");
+            String institution = intent.getStringExtra("institution");
             int duration = intent.getIntExtra("duration", 0);
 
-            uploadFromUri(fileUri, title, desc, category, duration);
+            uploadFromUri(fileUri, title, desc, category, duration, institution);
         }
 
         return START_REDELIVER_INTENT;
     }
 
     // [START upload_from_uri]
-    private void uploadFromUri(final Uri fileUri, final String title, final String desc, final String category, final int duration) {
+    private void uploadFromUri(final Uri fileUri, final String title, final String desc, final String category, final int duration, final String institution) {
         Log.d(TAG, "uploadFromUri:src:" + fileUri.toString());
 
         // [START_EXCLUDE]
@@ -139,6 +140,7 @@ public class MyUploadService extends MyBaseTaskService {
                                 current_user_db.child("Title").setValue(title);
                                 current_user_db.child("Desc").setValue(desc);
                                 current_user_db.child("Category").setValue(category);
+                                current_user_db.child("Institution").setValue(institution);
                                 current_user_db.child("VideoUrl").setValue(downUri);
                                 current_user_db.child("Name").setValue(getProfileName());
                                 current_user_db.child("ProfileImage").setValue(getProfilePic());
@@ -149,31 +151,25 @@ public class MyUploadService extends MyBaseTaskService {
                                 current_user_db.child("PostTime").setValue(Util.getPostTimestamp());
                             }
                         })
-                .addOnSuccessListener(new OnSuccessListener<Uri>() {
-                    @Override
-                    public void onSuccess(@NonNull Uri downloadUri) {
-                        // Upload succeeded
-                        Log.d(TAG, "uploadFromUri: getDownloadUri success");
+                .addOnSuccessListener(downloadUri -> {
+                    // Upload succeeded
+                    Log.d(TAG, "uploadFromUri: getDownloadUri success");
 
-                        // [START_EXCLUDE]
-                        broadcastUploadFinished(downloadUri, fileUri);
-                        showUploadFinishedNotification(downloadUri, fileUri);
-                        taskCompleted();
-                        // [END_EXCLUDE]
-                    }
+                    // [START_EXCLUDE]
+                    broadcastUploadFinished(downloadUri, fileUri);
+                    showUploadFinishedNotification(downloadUri, fileUri);
+                    taskCompleted();
+                    // [END_EXCLUDE]
                 })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception exception) {
-                        // Upload failed
-                        Log.w(TAG, "uploadFromUri:onFailure", exception);
+                .addOnFailureListener(exception -> {
+                    // Upload failed
+                    Log.w(TAG, "uploadFromUri:onFailure", exception);
 
-                        // [START_EXCLUDE]
-                        broadcastUploadFinished(null, fileUri);
-                        showUploadFinishedNotification(null, fileUri);
-                        taskCompleted();
-                        // [END_EXCLUDE]
-                    }
+                    // [START_EXCLUDE]
+                    broadcastUploadFinished(null, fileUri);
+                    showUploadFinishedNotification(null, fileUri);
+                    taskCompleted();
+                    // [END_EXCLUDE]
                 });
     }
     // [END upload_from_uri]

@@ -288,8 +288,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         mAuth.signInWithCredential(credential)
                 .addOnCompleteListener(this, task -> {
                     if (task.isSuccessful()) {
-
-                        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                        notInDB = true;
+                        databaseReference.addValueEventListener(new ValueEventListener() {
                             @Override
                             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
@@ -307,6 +307,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                                         String phone = String.valueOf(data.child("Phone Number").getValue());
                                         saveProfile(name, username, profile_pic, discipline, email, phone, institution);
 
+                                        notInDB = false;
                                         //startActivity(new Intent(Login1.this, LoginActivity.class));
                                     } else {
                                         notInDB = true;
