@@ -160,21 +160,15 @@ public class Video extends BaseFragment {
                 viewHolder.setProfileImg(getActivity().getApplicationContext(), model.getProfileImage());
                 viewHolder.setTime(model.getTime(), model.getPostTime());
 
-                viewHolder.view.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        startActivity(new Intent(getContext(), PlayVideo.class)
-                            .putExtra("video_url", model.getVideoUrl())
-                            .putExtra("title", model.getTitle())
-                            .putExtra("desc", model.getDesc())
-                            .putExtra("profile_pic", model.getProfileImage())
-                            .putExtra("category", model.getCategory())
-                            .putExtra("name", model.getName())
-                            .putExtra("user_id", post_key)
-                        );
-
-                    }
-                });
+                viewHolder.view.setOnClickListener(v -> startActivity(new Intent(getContext(), PlayVideo.class)
+                    .putExtra("video_url", model.getVideoUrl())
+                    .putExtra("title", model.getTitle())
+                    .putExtra("desc", model.getDesc())
+                    .putExtra("profile_pic", model.getProfileImage())
+                    .putExtra("category", model.getCategory())
+                    .putExtra("name", model.getName())
+                    .putExtra("user_id", post_key)
+                ));
             }
         };
         FBRA.startListening();

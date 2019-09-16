@@ -13,10 +13,15 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import android.text.method.LinkMovementMethod;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.MediaController;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -24,11 +29,16 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
+import com.firebase.ui.database.FirebaseRecyclerAdapter;
+import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 import com.warnyul.android.widget.FastVideoView;
 
 import java.util.ArrayList;
@@ -39,6 +49,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+import deemiensa.com.learnhub.BaseFragments.Video;
 import deemiensa.com.learnhub.Classes.HomeVideo;
 import deemiensa.com.learnhub.R;
 import deemiensa.com.learnhub.Utils.Util;
@@ -122,47 +133,92 @@ public class PlayVideo extends AppCompatActivity {
     public void onStart() {
         super.onStart();
 
-        //loadVideo();
-
-        /*FirebaseRecyclerAdapter<HomeVideo, VideoViewHolder> FBRA = new FirebaseRecyclerAdapter<HomeVideo, VideoViewHolder>(
-                HomeVideo.class,
-                R.layout.video_cell,
-                VideoViewHolder.class,
-                mDatabase
-        ) {
-            //@Override
-            protected void populateViewHolder(VideoViewHolder viewHolder, final HomeVideo model, int position) {
-                if (model.getCategory().equals(category)){
-                    // setting values to the viewholder of the recyclerview
-                    viewHolder.setTitle(model.getTitle());
-                    viewHolder.setUsername(model.getName());
-                    viewHolder.setDuration(model.getDuration());
-                    viewHolder.setCategory(model.getCategory());
-                    viewHolder.setUsername(model.getName());
-                    viewHolder.setThumbnail(PlayVideo.this, model.getThumbnail());
-                    viewHolder.setProfileImg(PlayVideo.this, model.getProfileImage());
-                    viewHolder.setTime(model.getTime(), model.getPostTime());
-
-                    viewHolder.view.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            startActivity(new Intent(PlayVideo.this, PlayVideo.class)
-                                    .putExtra("video_url", model.getVideoUrl())
-                                    .putExtra("title", model.getTitle())
-                                    .putExtra("desc", model.getDesc())
-                                    .putExtra("profile_pic", model.getProfileImage())
-                                    .putExtra("category", model.getCategory())
-                                    .putExtra("name", model.getName()));
-
-                            finish();
-                        }
-                    });
-                } else {
-
+        Query query = mDatabase.orderByChild("Category").equalTo(category);
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot data: dataSnapshot.getChildren()) {
+                    String key = data.getKey();
                 }
             }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+        FirebaseRecyclerOptions<HomeVideo> options =
+                new FirebaseRecyclerOptions.Builder<HomeVideo>()
+                        .setQuery(query, HomeVideo.class)
+                        .build();
+
+        FirebaseRecyclerAdapter<HomeVideo, PlayVideo.VideoViewHolder> FBRA = new FirebaseRecyclerAdapter<HomeVideo, PlayVideo.VideoViewHolder>(
+                options
+        ) {
+            @NonNull
+            @Override
+            public PlayVideo.VideoViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int i) {
+                View view = LayoutInflater.from(parent.getContext())
+                        .inflate(R.layout.more_videos_cell, parent, false);
+
+                return new PlayVideo.VideoViewHolder(view);
+            }
+
+            @Override
+            protected void onBindViewHolder(@NonNull PlayVideo.VideoViewHolder viewHolder, int position, @NonNull final HomeVideo model) {
+                final String post_key = getRef(position).getKey();
+                //last_key = post_key;
+                // setting values to the viewholder of the recyclerview
+                viewHolder.setTitle(model.getTitle());
+                viewHolder.setUsername(model.getName());
+                viewHolder.setThumbnail(PlayVideo.this, model.getThumbnail());
+                viewHolder.setDuration(model.getDuration());
+//                viewHolder.setCategory(model.getCategory());
+//                viewHolder.setUsername(model.getName());
+//                viewHolder.setProfileImg(PlayVideo.this, model.getProfileImage());
+//                viewHolder.setTime(model.getTime(), model.getPostTime());
+
+                viewHolder.view.setOnClickListener(v -> startActivity(new Intent(PlayVideo.this, PlayVideo.class)
+                        .putExtra("video_url", model.getVideoUrl())
+                        .putExtra("title", model.getTitle())
+                        .putExtra("desc", model.getDesc())
+                        .putExtra("profile_pic", model.getProfileImage())
+                        .putExtra("category", model.getCategory())
+                        .putExtra("name", model.getName())
+                        .putExtra("institution", model.getInstitution())
+                        .putExtra("user_id", post_key)
+                ));
+            }
+
+            /*//@Override
+            protected void populateViewHolder(PlayVideo.VideoViewHolder viewHolder, final HomeVideo model, int position) {
+                final String post_key = getRef(position).getKey();
+                //last_key = post_key;
+                // setting values to the viewholder of the recyclerview
+                viewHolder.setTitle(model.getTitle());
+                viewHolder.setUsername(model.getName());
+                viewHolder.setDuration(model.getDuration());
+                viewHolder.setCategory(model.getCategory());
+                viewHolder.setUsername(model.getName());
+                viewHolder.setThumbnail(PlayVideo.this, model.getThumbnail());
+                viewHolder.setProfileImg(PlayVideo.this, model.getProfileImage());
+                viewHolder.setTime(model.getTime(), model.getPostTime());
+
+                viewHolder.view.setOnClickListener(v -> startActivity(new Intent(PlayVideo.this, PlayVideo.class)
+                        .putExtra("video_url", model.getVideoUrl())
+                        .putExtra("title", model.getTitle())
+                        .putExtra("desc", model.getDesc())
+                        .putExtra("profile_pic", model.getProfileImage())
+                        .putExtra("category", model.getCategory())
+                        .putExtra("name", model.getName())
+                        .putExtra("user_id", post_key)
+                ));
+            }*/
         };
-        recyclerView.setAdapter(FBRA);*/
+        FBRA.startListening();
+        recyclerView.setAdapter(FBRA);
+
     }
 
     @Override
@@ -177,6 +233,7 @@ public class PlayVideo extends AppCompatActivity {
         videoView = (FastVideoView)findViewById(R.id.video);
 
         mTitle.setText(title);
+        mDesc.setMovementMethod(LinkMovementMethod.getInstance());
         mDesc.setText(desc);
         mName.setText(name);
         mInstitute.setText(institution);
@@ -313,10 +370,8 @@ public class PlayVideo extends AppCompatActivity {
     }
 
     public static class VideoViewHolder extends RecyclerView.ViewHolder {
-        //View mView;
-        DatabaseReference mDatabaseLike;
         FirebaseAuth mAuth;
-        ConstraintLayout view;
+        LinearLayout view;
 
         public VideoViewHolder(View itemView) {
             super(itemView);
@@ -378,10 +433,5 @@ public class PlayVideo extends AppCompatActivity {
             }
             //post_time.setText(Util.getTimestampDifference(time));
         }
-
-        /*public void setLikes(int number){
-            TextView post_like = itemView.findViewById(R.id.likesView);
-            post_like.setText(number);
-        }*/
     }
 }
