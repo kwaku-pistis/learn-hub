@@ -108,76 +108,13 @@ public class Docs extends BaseFragment {
                 // setting values to the viewholder of the recyclerview
                 viewHolder.setTitle(model.getTitle());
                 viewHolder.setUsername(model.getName());
-                /*viewHolder.setDuration(model.getDuration());
-                viewHolder.setCategory(model.getCategory());*/
-                //viewHolder.setUsername(model.getName());
-                /*viewHolder.setThumbnail(getActivity().getApplicationContext(), model.getThumbnail());
-                viewHolder.setProfileImg(getActivity().getApplicationContext(), model.getProfileImage());*/
                 viewHolder.setTime(model.getTime(), model.getPostTime());
                 viewHolder.setThumbnail(getActivity().getApplicationContext(), model.getMimetype());
 
-                viewHolder.view.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-
-                        // another method to open link in a browser
-                        openWebPage(model.getDownloadUrl());
-
-                    }
-                });
-            }
-
-            //@Override
-            protected void populateViewHolder(DocsViewHolder viewHolder, final Documents model, int position) {
-
-                // setting values to the viewholder of the recyclerview
-                viewHolder.setTitle(model.getTitle());
-                viewHolder.setUsername(model.getName());
-                /*viewHolder.setDuration(model.getDuration());
-                viewHolder.setCategory(model.getCategory());*/
-                //viewHolder.setUsername(model.getName());
-                /*viewHolder.setThumbnail(getActivity().getApplicationContext(), model.getThumbnail());
-                viewHolder.setProfileImg(getActivity().getApplicationContext(), model.getProfileImage());*/
-                viewHolder.setTime(model.getTime(), model.getPostTime());
-                viewHolder.setThumbnail(getActivity().getApplicationContext(), model.getMimetype());
-
-                viewHolder.view.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        /*startActivity(new Intent(getContext(), null)
-                                .putExtra("title", model.getTitle())
-                                .putExtra("name", model.getName()));*/
-
-                        //openDocument(model.getDownloadUrl());
-
-                        // opening the file in a webview
-                       /* wView.getSettings().setJavaScriptEnabled(true);
-                        wView.getSettings().setSupportZoom(true);
-                        //progress = (ProgressBar) findViewById(R.id.progressbar);
-                        String docUrl="http://docs.google.com/gview?embedded=true&url=";
-                        wView.setWebViewClient(new WebViewClient() {
-                            @Override
-                            public boolean shouldOverrideUrlLoading(WebView view, String url) {
-                                view.loadUrl(url);
-                                return true;
-                            }
-                            @Override
-                            public void onPageFinished(WebView view, String url) {
-                                //progress.setVisibility(View.GONE);
-                                super.onPageFinished(view, url);
-                            }
-                            @Override
-                            public void onPageStarted(WebView view, String url, Bitmap favicon) {
-                                //progress.setVisibility(View.VISIBLE);
-                                super.onPageStarted(view, url, favicon);
-                            }
-                        });
-                        wView.loadUrl(docUrl+ url);*/
-
-                       // another method to open link in a browser
-                        openWebPage(model.getDownloadUrl());
-
-                    }
+                viewHolder.view.setOnClickListener(v -> {
+                    // another method to open link in a browser
+                    // openWebPage(model.getDownloadUrl());
+                    openDocument(model.getDownloadUrl(), model.getMimetype());
                 });
             }
         };
@@ -282,16 +219,6 @@ public class Docs extends BaseFragment {
             postCategory.setText(category);
         }
 
-        /*public void setProfileImg(Context context, String profileImg) {
-            CircleImageView post_profile = itemView.findViewById(R.id.profile_image);
-            Glide.with(context)
-                    .setDefaultRequestOptions(new RequestOptions()
-                            .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
-                            .placeholder(R.drawable.ic_avatar)
-                            .fitCenter()
-                    ).load(profileImg).into(post_profile);
-        }*/
-
         public void setTime(String time, String model_time) {
 
             String timestampDiff = Util.getTimestampDifference(time);
@@ -305,7 +232,7 @@ public class Docs extends BaseFragment {
         }
     }
 
-    public void openDocument(String name) {
+    public void openDocument(String name, String m_type) {
         Intent intent = new Intent(android.content.Intent.ACTION_VIEW);
         File file = new File(name);
         String extension = android.webkit.MimeTypeMap.getFileExtensionFromUrl(Uri.fromFile(file).toString());
@@ -313,20 +240,21 @@ public class Docs extends BaseFragment {
         if (extension.equalsIgnoreCase("") || mimetype == null) {
             // if there is no extension or there is no definite mimetype, still try to open the file
             //intent.setDataAndType(Uri.fromFile(file), "text/*");
-            Uri apkURI = FileProvider.getUriForFile(
+            /*Uri apkURI = FileProvider.getUriForFile(
                     getContext(),
                     getActivity().getApplicationContext()
-                            .getPackageName() + ".provider", file);
-            intent.setDataAndType(apkURI, "text/");
+                            .getPackageName() + ".provider", file);*/
+            intent.setDataAndType(Uri.parse(name), m_type);
             intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
         } else {
             //intent.setDataAndType(Uri.fromFile(file), mimetype);
 
-            Uri apkURI = FileProvider.getUriForFile(
+           /* Uri apkURI = FileProvider.getUriForFile(
                     getContext(),
                     getActivity().getApplicationContext()
-                            .getPackageName() + ".provider", file);
-            intent.setDataAndType(apkURI, mimetype);
+                            .getPackageName() + ".provider", file);*/
+            //intent.setDataAndType(apkURI, mimetype);
+            intent.setDataAndType(Uri.parse(name), m_type);
             intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
         }
         // custom message for the intent
