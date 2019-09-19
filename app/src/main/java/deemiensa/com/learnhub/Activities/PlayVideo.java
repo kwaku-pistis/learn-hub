@@ -61,11 +61,11 @@ public class PlayVideo extends AppCompatActivity {
 
     FastVideoView videoView = null;
     ProgressBar mProgress;
-    private String str_video, title, desc, profile_pic, category, name, institution;
-    private TextView mTitle, mDesc, mCategory, mName, mInstitute;
-    private ImageView mPlay, mForward, mRewind, mFullView, mVideoCall;
+    private String str_video, title, desc, profile_pic, category, name, institution, post_key, currentUserID;
+    private TextView mTitle, mDesc, mCategory, mName, mInstitute, mThumbUpTv, mThumbDownTv;
+    private ImageView mPlay, mForward, mRewind, mFullView, mVideoCall, mThumbUp, mThumbDown;
     private CircleImageView mProfilePic;
-    private DatabaseReference mDatabase;
+    private DatabaseReference mDatabase, likeRef, dislikeRef;
     private DatabaseReference mRootDataBase;
     private FirebaseAuth mAuth;
     private FirebaseUser mCurrentUser;
@@ -74,6 +74,12 @@ public class PlayVideo extends AppCompatActivity {
     private String mCurrentUserId;
     private String mChatUserId;
     List<HomeVideo> videoList;
+
+    boolean liked = false;
+    boolean disliked = false;
+    boolean likeChecker = false;
+
+    int countLikes, countDislikes;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,7 +92,8 @@ public class PlayVideo extends AppCompatActivity {
         profile_pic = getIntent().getStringExtra("profile_pic");
         category = getIntent().getStringExtra("category");
         name = getIntent().getStringExtra("name");
-        mChatUserId = getIntent().getStringExtra("user_id");
+        post_key = getIntent().getStringExtra("post_key");
+        mChatUserId = getIntent().getStringExtra("post_key");
         institution = getIntent().getStringExtra("institution");
 
         if(mChatUserId == null) {
@@ -106,12 +113,19 @@ public class PlayVideo extends AppCompatActivity {
         mRewind = findViewById(R.id.rewind_btn);
         mFullView = findViewById(R.id.full_view);
         mVideoCall = findViewById(R.id.video_call_btn);
+        mThumbUp = findViewById(R.id.thumbs_up);
+        mThumbDown = findViewById(R.id.thumbs_down);
+        mThumbUpTv = findViewById(R.id.thumbs_up_tv);
+        mThumbDownTv = findViewById(R.id.thumbs_down_tv);
 
         // initializing firebase variables
         mAuth = FirebaseAuth.getInstance();
         mDatabase = FirebaseDatabase.getInstance().getReference().child("Video Posts");
+        likeRef = FirebaseDatabase.getInstance().getReference().child("Liked Videos");
+        dislikeRef = FirebaseDatabase.getInstance().getReference().child("Disliked Videos");
         mRootDataBase = FirebaseDatabase.getInstance().getReference();
         mCurrentUser = mAuth.getCurrentUser();
+        currentUserID = mCurrentUser.getUid();
 
         linearLayoutManager = new LinearLayoutManager(this);
         linearLayoutManager.setStackFromEnd(true);
@@ -126,8 +140,7 @@ public class PlayVideo extends AppCompatActivity {
 
         init();
 
-        if(mAuth.getCurrentUser() != null)
-        {
+        if(mAuth.getCurrentUser() != null) {
             mCurrentUserId = mAuth.getCurrentUser().getUid();
         }
     }
@@ -135,6 +148,46 @@ public class PlayVideo extends AppCompatActivity {
     @Override
     public void onStart() {
         super.onStart();
+
+        likeRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.child(post_key).hasChild(currentUserID)){
+                    countLikes = (int) dataSnapshot.child(post_key).getChildrenCount();
+                    mThumbUp.setImageResource(R.drawable.ic_thumb_up_blue);
+                    mThumbUpTv.setText(String.valueOf(countLikes));
+                } else {
+                    countLikes = (int) dataSnapshot.child(post_key).getChildrenCount();
+                    mThumbUp.setImageResource(R.drawable.ic_thumb_up_white);
+                    mThumbUpTv.setText(String.valueOf(countLikes));
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+        dislikeRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.child(post_key).hasChild(currentUserID)){
+                    countDislikes = (int) dataSnapshot.child(post_key).getChildrenCount();
+                    mThumbDown.setImageResource(R.drawable.ic_thumb_down_blue);
+                    mThumbDownTv.setText(String.valueOf(countDislikes));
+                } else {
+                    countDislikes = (int) dataSnapshot.child(post_key).getChildrenCount();
+                    mThumbDown.setImageResource(R.drawable.ic_thumb_down_white);
+                    mThumbDownTv.setText(String.valueOf(countDislikes));
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
 
         Query query = mDatabase.orderByChild("Category").equalTo(category);
         query.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -319,6 +372,105 @@ public class PlayVideo extends AppCompatActivity {
             params.height = metrics.heightPixels;
             params.leftMargin = 0;
             videoView.setLayoutParams(params);
+        });
+
+        //boolean liked;
+        // when a video is liked
+        mThumbUp.setOnClickListener(view -> {
+            likeChecker = true;
+
+            likeRef.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    if (likeChecker){
+                        if (dataSnapshot.child(post_key).hasChild(currentUserID)){
+                            // user has already like the video so remove it from the database
+                            likeRef.child(post_key).child(currentUserID).removeValue();
+                            likeChecker = false;
+                        } else {
+                            // user hasn't liked this video yet
+                            likeRef.child(post_key).child(currentUserID).setValue(true);
+                            likeChecker = false;
+                        }
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            });
+
+            disliked = true;
+
+            dislikeRef.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    if (disliked){
+                        if (dataSnapshot.child(post_key).hasChild(currentUserID)){
+                            dislikeRef.child(post_key).child(currentUserID).removeValue();
+                            disliked = false;
+                        }/* else {
+                            dislikeRef.child(post_key).child(currentUserID).setValue(true);
+                            disliked = false;
+                        }*/
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            });
+        });
+
+        // when a video is disliked
+        mThumbDown.setOnClickListener(v -> {
+           disliked = true;
+
+           dislikeRef.addValueEventListener(new ValueEventListener() {
+               @Override
+               public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                   if (disliked){
+                       if (dataSnapshot.child(post_key).hasChild(currentUserID)){
+                           dislikeRef.child(post_key).child(currentUserID).removeValue();
+                           disliked = false;
+                       } else {
+                           dislikeRef.child(post_key).child(currentUserID).setValue(true);
+                           disliked = false;
+                       }
+                   }
+               }
+
+               @Override
+               public void onCancelled(@NonNull DatabaseError databaseError) {
+
+               }
+           });
+
+           likeChecker = true;
+
+            likeRef.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    if (likeChecker){
+                        if (dataSnapshot.child(post_key).hasChild(currentUserID)){
+                            // user has already like the video so remove it from the database
+                            likeRef.child(post_key).child(currentUserID).removeValue();
+                            likeChecker = false;
+                        }/* else {
+                            // user hasn't liked this video yet
+                            likeRef.child(post_key).child(currentUserID).setValue(true);
+                            likeChecker = false;
+                        }*/
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            });
         });
 
        mVideoCall.setOnClickListener(v -> {

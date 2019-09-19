@@ -7,71 +7,6 @@
     android:background="@color/colorPrimary"
     tools:context=".App.MainActivity">
 
-   <!-- <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/colorPrimary"
-        app:popupTheme="@style/AppTheme.PopupOverlay" >
-
-        &lt;!&ndash;<ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/imageViewplaces"
-            android:src="@drawable/ic_question_mark"
-            />&ndash;&gt;
-    </android.support.v7.widget.Toolbar>-->
-
-    <!-- TOOLBAR / ACTIONBAR -->
-   <!-- <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="150dp"
-        android:background="@color/colorPrimary"
-        app:layout_scrollFlags="scroll|enterAlways"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-        android:layout_alignParentTop="true"
-        app:titleTextColor="@color/white">
-
-    </android.support.v7.widget.Toolbar>-->
-
-    <!--<ImageButton
-        android:id="@+id/button10"
-        android:layout_width="50dp"
-        android:layout_height="55dp"
-        android:background="@color/colorPrimary"
-        android:textAllCaps="false"
-        android:src="@drawable/ic_search_white_48dp"
-        android:layout_gravity="bottom"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />-->
-
-
-    <!--<ImageView
-        android:id="@+id/imageButton"
-        android:layout_width="180dp"
-        android:layout_height="wrap_content"
-        android:background="@drawable/toolbar"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignBottom="@+id/imageButtonx" />-->
-
-
-
-   <!-- <View
-        android:id="@+id/imageButtonx"
-        android:layout_width="0dp"
-        android:layout_height="45dp"
-        android:src="@drawable/line"
-        android:background="@color/colorPrimary"
-        android:layout_alignTop="@+id/button10"
-        android:layout_alignBottom="@+id/button10"
-        android:layout_toLeftOf="@+id/button10"
-        android:layout_toStartOf="@+id/button10" />-->
-
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -79,11 +14,6 @@
             android:background="@color/white"
             android:id="@+id/linear"
             >
-
-          <!--  <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@drawable/bottom_shadow" />-->
 
             <RelativeLayout
                 android:id="@+id/relLayout"

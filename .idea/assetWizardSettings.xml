@@ -35,7 +35,7 @@
                                           <PersistentState>
                                             <option name="values">
                                               <map>
-                                                <entry key="url" value="jar:file:/opt/android-studio/plugins/android/lib/android.jar!/images/material_design_icons/image/ic_edit_black_24dp.xml" />
+                                                <entry key="url" value="jar:file:/opt/android-studio/plugins/android/lib/android.jar!/images/material_design_icons/action/ic_thumb_down_black_24dp.xml" />
                                               </map>
                                             </option>
                                           </PersistentState>
@@ -45,9 +45,9 @@
                                   </option>
                                   <option name="values">
                                     <map>
-                                      <entry key="outputName" value="ic_edit" />
-                                      <entry key="theme" value="HOLO_DARK" />
-                                      <entry key="themeColor" value="eb5e3e" />
+                                      <entry key="outputName" value="ic_thumb_down_blue" />
+                                      <entry key="theme" value="CUSTOM" />
+                                      <entry key="themeColor" value="0000ff" />
                                     </map>
                                   </option>
                                 </PersistentState>
