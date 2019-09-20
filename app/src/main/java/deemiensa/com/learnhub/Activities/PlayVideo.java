@@ -62,10 +62,10 @@ public class PlayVideo extends AppCompatActivity {
     FastVideoView videoView = null;
     ProgressBar mProgress;
     private String str_video, title, desc, profile_pic, category, name, institution, post_key, currentUserID;
-    private TextView mTitle, mDesc, mCategory, mName, mInstitute, mThumbUpTv, mThumbDownTv;
-    private ImageView mPlay, mForward, mRewind, mFullView, mVideoCall, mThumbUp, mThumbDown;
+    private TextView mTitle, mDesc, mCategory, mName, mInstitute, mThumbUpTv, mThumbDownTv, mViews;
+    private ImageView mPlay, mForward, mRewind, mFullView, mVideoCall, mThumbUp, mThumbDown, mDropDown;
     private CircleImageView mProfilePic;
-    private DatabaseReference mDatabase, likeRef, dislikeRef;
+    private DatabaseReference mDatabase, likeRef, dislikeRef, views;
     private DatabaseReference mRootDataBase;
     private FirebaseAuth mAuth;
     private FirebaseUser mCurrentUser;
@@ -79,7 +79,7 @@ public class PlayVideo extends AppCompatActivity {
     boolean disliked = false;
     boolean likeChecker = false;
 
-    int countLikes, countDislikes;
+    int countLikes, countDislikes, countViews;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -117,12 +117,15 @@ public class PlayVideo extends AppCompatActivity {
         mThumbDown = findViewById(R.id.thumbs_down);
         mThumbUpTv = findViewById(R.id.thumbs_up_tv);
         mThumbDownTv = findViewById(R.id.thumbs_down_tv);
+        mViews = findViewById(R.id.views);
+        mDropDown = findViewById(R.id.title_drop_down);
 
         // initializing firebase variables
         mAuth = FirebaseAuth.getInstance();
         mDatabase = FirebaseDatabase.getInstance().getReference().child("Video Posts");
         likeRef = FirebaseDatabase.getInstance().getReference().child("Liked Videos");
         dislikeRef = FirebaseDatabase.getInstance().getReference().child("Disliked Videos");
+        views = FirebaseDatabase.getInstance().getReference().child("Views");
         mRootDataBase = FirebaseDatabase.getInstance().getReference();
         mCurrentUser = mAuth.getCurrentUser();
         currentUserID = mCurrentUser.getUid();
@@ -148,6 +151,19 @@ public class PlayVideo extends AppCompatActivity {
     @Override
     public void onStart() {
         super.onStart();
+
+        views.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                countViews = (int) dataSnapshot.child(post_key).getChildrenCount();
+                mViews.setText(String.valueOf(countViews) + " views");
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
 
         likeRef.addValueEventListener(new ValueEventListener() {
             @Override
@@ -313,6 +329,20 @@ public class PlayVideo extends AppCompatActivity {
             mForward.setVisibility(View.GONE);
             mRewind.setVisibility(View.GONE);
             mFullView.setVisibility(View.GONE);
+
+            views.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    if (!dataSnapshot.child(post_key).hasChild(currentUserID)){
+                        views.child(post_key).child(currentUserID).setValue(true);
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            });
         });
 
         videoView.setOnTouchListener(new View.OnTouchListener() {
@@ -472,6 +502,8 @@ public class PlayVideo extends AppCompatActivity {
                 }
             });
         });
+
+
 
        mVideoCall.setOnClickListener(v -> {
            final AlertDialog.Builder builder;
