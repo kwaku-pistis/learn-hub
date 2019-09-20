@@ -61,10 +61,11 @@ public class PlayVideo extends AppCompatActivity {
 
     FastVideoView videoView = null;
     ProgressBar mProgress;
-    private String str_video, title, desc, profile_pic, category, name, institution, post_key, currentUserID;
-    private TextView mTitle, mDesc, mCategory, mName, mInstitute, mThumbUpTv, mThumbDownTv, mViews;
-    private ImageView mPlay, mForward, mRewind, mFullView, mVideoCall, mThumbUp, mThumbDown, mDropDown;
+    private String str_video, title, desc, profile_pic, category, name, institution, post_key, currentUserID, publishedDate;
+    private TextView mTitle, mDesc, mCategory, mName, mInstitute, mThumbUpTv, mThumbDownTv, mViews, mPublished;
+    private ImageView mPlay, mForward, mRewind, mFullView, mVideoCall, mThumbUp, mThumbDown, mDropDown, mDropUp;
     private CircleImageView mProfilePic;
+    private LinearLayout linearLayout;
     private DatabaseReference mDatabase, likeRef, dislikeRef, views;
     private DatabaseReference mRootDataBase;
     private FirebaseAuth mAuth;
@@ -95,6 +96,7 @@ public class PlayVideo extends AppCompatActivity {
         post_key = getIntent().getStringExtra("post_key");
         mChatUserId = getIntent().getStringExtra("post_key");
         institution = getIntent().getStringExtra("institution");
+        publishedDate = getIntent().getStringExtra("published");
 
         if(mChatUserId == null) {
             mChatUserId = getIntent().getExtras().getString("sender_id");
@@ -102,11 +104,12 @@ public class PlayVideo extends AppCompatActivity {
 
         //binding views
         mTitle = findViewById(R.id.title);
-        mDesc = findViewById(R.id.desc_textView);
+        mPublished = findViewById(R.id.pub_text_view);
+        mDesc = findViewById(R.id.desc_text_view);
         mProgress= findViewById(R.id.progress_bar);
         mName = findViewById(R.id.name_text);
         mInstitute = findViewById(R.id.institution);
-        mCategory = findViewById(R.id.cat_textView);
+        mCategory = findViewById(R.id.cat_text_view);
         mProfilePic = findViewById(R.id.profile_pic);
         mPlay = findViewById(R.id.play_btn);
         mForward = findViewById(R.id.forward_btn);
@@ -119,6 +122,8 @@ public class PlayVideo extends AppCompatActivity {
         mThumbDownTv = findViewById(R.id.thumbs_down_tv);
         mViews = findViewById(R.id.views);
         mDropDown = findViewById(R.id.title_drop_down);
+        mDropUp = findViewById(R.id.title_drop_up);
+        linearLayout = findViewById(R.id.des_content);
 
         // initializing firebase variables
         mAuth = FirebaseAuth.getInstance();
@@ -156,7 +161,7 @@ public class PlayVideo extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 countViews = (int) dataSnapshot.child(post_key).getChildrenCount();
-                mViews.setText(String.valueOf(countViews) + " views");
+                mViews.setText(countViews + " views");
             }
 
             @Override
@@ -259,6 +264,7 @@ public class PlayVideo extends AppCompatActivity {
                         .putExtra("category", model.getCategory())
                         .putExtra("name", model.getName())
                         .putExtra("institution", model.getInstitution())
+                        .putExtra("published", model.getPublishedDate())
                         .putExtra("user_id", post_key)
                 ));
             }
@@ -309,7 +315,8 @@ public class PlayVideo extends AppCompatActivity {
         mDesc.setText(desc);
         mName.setText(name);
         mInstitute.setText(institution);
-        mCategory.setText(category);
+        mCategory.setText("Category: \t\t\t\t" + category);
+        mPublished.setText("Published on " + publishedDate);
         Glide.with(this)
                 .setDefaultRequestOptions(new RequestOptions()
                         .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
@@ -503,7 +510,17 @@ public class PlayVideo extends AppCompatActivity {
             });
         });
 
+        mDropDown.setOnClickListener(view -> {
+            linearLayout.setVisibility(View.VISIBLE);
+            mDropUp.setVisibility(View.VISIBLE);
+            mDropDown.setVisibility(View.GONE);
+        });
 
+        mDropUp.setOnClickListener(view -> {
+            linearLayout.setVisibility(View.GONE);
+            mDropDown.setVisibility(View.VISIBLE);
+            mDropUp.setVisibility(View.GONE);
+        });
 
        mVideoCall.setOnClickListener(v -> {
            final AlertDialog.Builder builder;

@@ -176,6 +176,14 @@
 
             </LinearLayout>
 
+
+        <View
+            android:id="@+id/view0"
+            android:layout_below="@+id/like_ll"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#555"/>
+
             <RelativeLayout
                 android:id="@+id/trim_view"
                 android:layout_width="match_parent"
@@ -214,16 +222,22 @@
                     android:layout_alignParentEnd="true"
                     android:layout_alignParentRight="true"
                     android:layout_centerInParent="true"
+                    android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
                     android:layout_marginEnd="10dp" />
 
-                <View
-                    android:id="@+id/view0"
-                    android:layout_below="@+id/title"
-                    android:layout_width="match_parent"
+                <ImageView
+                    android:id="@+id/title_drop_up"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_arrow_drop_up_white_24dp"
                     android:visibility="gone"
-                    android:layout_height="1dp"
-                    android:background="#555"/>
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerInParent="true"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginEnd="10dp" />
 
             </RelativeLayout>
 
@@ -292,8 +306,56 @@
 
                 </LinearLayout>
 
+                <LinearLayout
+                    android:id="@+id/des_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/profile_linear"
+                    android:visibility="gone"
+                    android:orientation="vertical">
 
-                <View
+                    <TextView
+                        android:id="@+id/pub_text_view"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Published on ..."
+                        android:textColor="@color/white"
+                        android:layout_marginLeft="16dp"
+                        android:textSize="14sp"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginRight="20dp"
+                        android:layout_marginEnd="20dp" />
+
+                    <TextView
+                        android:id="@+id/desc_text_view"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/lorem_ipsum"
+                        android:textColor="@color/white"
+                        android:layout_marginLeft="16dp"
+                        android:textSize="14sp"
+                        android:layout_marginTop="25dp"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginRight="20dp"
+                        android:layout_marginEnd="20dp" />
+
+                    <TextView
+                        android:id="@+id/cat_text_view"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Category"
+                        android:textColor="@color/white"
+                        android:layout_marginLeft="16dp"
+                        android:textSize="14sp"
+                        android:layout_marginTop="25dp"
+                        android:layout_marginBottom="16dp"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginRight="20dp"
+                        android:layout_marginEnd="20dp" />
+                </LinearLayout>
+
+
+                <!--<View
                     android:id="@+id/view1"
                     android:layout_below="@+id/profile_linear"
                     android:layout_width="match_parent"
@@ -358,11 +420,11 @@
                     android:textSize="14sp"
                     android:paddingStart="15dp"
                     android:layout_marginLeft="10dp"
-                    android:layout_marginRight="10dp"/>
+                    android:layout_marginRight="10dp"/>-->
 
                 <View
                     android:id="@+id/view3"
-                    android:layout_below="@+id/cat_textView"
+                    android:layout_below="@+id/des_content"
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:background="#555"/>

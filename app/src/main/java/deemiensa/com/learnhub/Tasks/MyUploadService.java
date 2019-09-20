@@ -148,6 +148,7 @@ public class MyUploadService extends MyBaseTaskService {
                                 current_user_db.child("UserID").setValue(user_id);
                                 current_user_db.child("Thumbnail").setValue(getThumbnail());
                                 current_user_db.child("Time").setValue(Util.getTimestamp());
+                                current_user_db.child("Published Date").setValue(Util.getPublishedDate());
                                 current_user_db.child("PostTime").setValue(Util.getPostTimestamp());
                             }
                         })

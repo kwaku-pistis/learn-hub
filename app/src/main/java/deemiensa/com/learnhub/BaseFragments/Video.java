@@ -142,6 +142,7 @@ public class Video extends BaseFragment {
                         .putExtra("category", model.getCategory())
                         .putExtra("name", model.getName())
                         .putExtra("institution", model.getInstitution())
+                        .putExtra("published", model.getPublishedDate())
                         .putExtra("post_key", post_key)
                 ));
             }

@@ -256,6 +256,12 @@ public class Util {
         return sdf.format(new Date());
     }
 
+    public static String getPublishedDate(){
+        SimpleDateFormat sdf = new SimpleDateFormat("dd MMMM yyyy", Locale.UK);
+        sdf.setTimeZone(TimeZone.getTimeZone("Africa/Accra"));
+        return sdf.format(new Date());
+    }
+
     public static String getPostTimestamp(){
         SimpleDateFormat sdf = new SimpleDateFormat("HH:mm", Locale.UK);
         sdf.setTimeZone(TimeZone.getTimeZone("Africa/Accra"));
