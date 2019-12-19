@@ -1,6 +1,6 @@
 <resources>
-    <string name="app_name">LearnHub</string>
-    <string name="action_settings">Settings</string>
+    <string name="app_name" translatable="false">LearnHub</string>
+    <string name="action_settings" translatable="false">Settings</string>
 
     <array name="tab_name">
         <item>Video</item>
@@ -10,7 +10,7 @@
         <item>Profile</item>
     </array>
 
-    <string name="prompt">Choose your Institution</string>
+    <string name="prompt" translatable="false">Choose your Institution</string>
 
     <string-array name="uni_arrays">
         <item>University of Ghana</item>
@@ -36,7 +36,7 @@
     <!-- OnBoard Screen. -->
 
     <string name="ob_header1">Welcome Screen 1</string>
-    <string name="ob_header2">Welcome Screen 2</string>
+    <string name="ob_header2" translatable="false">Welcome Screen 2</string>
     <string name="ob_header3">Welcome Screen 3</string>
 
     <string name="ob_get_started">GET STARTED</string>
@@ -94,7 +94,7 @@
     <string name="open_profile">Open Profile</string>
     <string name="send_message">Send Message</string>
 
-    <string name="terms_string">\nCurrent Update On: 25th December, 2018
+    <string name="terms_string" translatable="false">\nCurrent Update On: 25th December, 2018
 \n\n\n1.	Contractual Relationship
 \n\nThese Terms of Service (“Terms”) govern your access to and use of our services by you, an individual, business, brand, government or her agencies from within any country in the world including our various websites, SMS, APIs, email notifications, applications, buttons, widgets, ads, commerce services, and our other covered services that link to these Terms (collectively, the “Services”), and any information, text, links, graphics, photos, audio, videos, or other materials or arrangements of materials uploaded, downloaded or appearing on the Services (collectively referred to as “Content”) made available by LearnHub.
 \n\nBy using LearnHub\'s Services you agree to be bound by these Terms, which establishes a contractual relationship between you and LearnHub. If you do not agree to these Terms, you may not access or use the Services. These Terms expressly supersede prior agreements or arrangements with you. LearnHub may immediately terminate these Terms or any Services with respect to you, or generally cease offering or deny you access to the Services or any portion thereof, at any time for any reason.

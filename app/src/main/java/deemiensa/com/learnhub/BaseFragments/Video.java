@@ -10,11 +10,16 @@ import androidx.fragment.app.Fragment;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
@@ -123,6 +128,7 @@ public class Video extends BaseFragment {
             @Override
             protected void onBindViewHolder(@NonNull VideoViewHolder viewHolder, int position, @NonNull final HomeVideo model) {
                 final String post_key = getRef(position).getKey();
+                count = getItemCount();
                 //last_key = post_key;
                 // setting values to the viewholder of the recyclerview
                 viewHolder.setTitle(model.getTitle());
@@ -144,31 +150,6 @@ public class Video extends BaseFragment {
                         .putExtra("institution", model.getInstitution())
                         .putExtra("published", model.getPublishedDate())
                         .putExtra("post_key", post_key)
-                ));
-            }
-
-            //@Override
-            protected void populateViewHolder(Video.VideoViewHolder viewHolder, final HomeVideo model, int position) {
-                final String post_key = getRef(position).getKey();
-                //last_key = post_key;
-                // setting values to the viewholder of the recyclerview
-                viewHolder.setTitle(model.getTitle());
-                viewHolder.setUsername(model.getName());
-                viewHolder.setDuration(model.getDuration());
-                viewHolder.setCategory(model.getCategory());
-                viewHolder.setUsername(model.getName());
-                viewHolder.setThumbnail(getActivity().getApplicationContext(), model.getThumbnail());
-                viewHolder.setProfileImg(getActivity().getApplicationContext(), model.getProfileImage());
-                viewHolder.setTime(model.getTime(), model.getPostTime());
-
-                viewHolder.view.setOnClickListener(v -> startActivity(new Intent(getContext(), PlayVideo.class)
-                    .putExtra("video_url", model.getVideoUrl())
-                    .putExtra("title", model.getTitle())
-                    .putExtra("desc", model.getDesc())
-                    .putExtra("profile_pic", model.getProfileImage())
-                    .putExtra("category", model.getCategory())
-                    .putExtra("name", model.getName())
-                    .putExtra("user_id", post_key)
                 ));
             }
         };
@@ -218,6 +199,7 @@ public class Video extends BaseFragment {
             //mDatabaseLike = FirebaseDatabase.getInstance().getReference().child("Likes");
             mAuth = FirebaseAuth.getInstance();
             view = itemView.findViewById(R.id.top_layout);
+
             //mDatabaseLike.keepSynced(true);
         }
 

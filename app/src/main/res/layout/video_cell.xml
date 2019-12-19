@@ -38,6 +38,8 @@
 		android:text="Title"
 		android:textColor="@color/white"
 		tools:ignore="MissingConstraints" />
+
+
 	<TextView
 		android:id="@+id/thumbs_up_text_view"
 		style="@style/GridMicroDetailsTextView"
